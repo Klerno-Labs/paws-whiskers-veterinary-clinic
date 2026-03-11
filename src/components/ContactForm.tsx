@@ -1,8 +1,7 @@
-"use client";
-
 ```typescript
 import React, { useState } from 'react';
 
+import { useState } from "react";
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', _gotcha: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
