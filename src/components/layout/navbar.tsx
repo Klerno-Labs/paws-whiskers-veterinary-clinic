@@ -1,142 +1,180 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, X, Phone, PawPrint } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
+import { Menu, X, Phone, Calendar } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/services", label: "Services" },
+    { href: "/team", label: "Team" },
+    { href: "/new-patients", label: "New Patients" },
+    { href: "/contact", label: "Contact" },
+  ]
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
         className={cn(
-          "fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl z-50 transition-all duration-300 rounded-[9999px]",
-          isScrolled
-            ? "bg-white/90 backdrop-blur-xl shadow-card py-3 border border-slate-200/60"
-            : "bg-white/80 backdrop-blur-lg py-4"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          scrolled ? "top-4" : "top-6"
         )}
       >
-        <div className="flex items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2 font-heading font-bold text-xl text-secondary-900 hover:text-primary-600 transition-colors">
-            <PawPrint className="w-6 h-6 text-primary-600" />
-            <span className="hidden sm:inline">Paws & Whiskers</span>
-            <span className="sm:hidden">P&W</span>
-          </Link>
+        <nav
+          className={cn(
+            "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 rounded-full border border-slate-200/60 bg-white/80 backdrop-blur-xl shadow-sm transition-all duration-300",
+            scrolled ? "py-2" : "py-3"
+          )}
+        >
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 shrink-0 group">
+              <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                <span className="text-xl text-green-700">🐾</span>
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="font-heading font-bold text-slate-900 leading-tight text-sm sm:text-base">
+                  Paws & Whiskers
+                </h1>
+                <p className="text-xs text-slate-500 font-medium">Veterinary Clinic</p>
+              </div>
+            </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
-            {siteConfig.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary-600",
-                  pathname === item.href
-                    ? "text-primary-700 font-semibold"
-                    : "text-secondary-600"
-                )}
-              >
-                {item.title}
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-green-600 relative",
+                    pathname === link.href
+                      ? "text-green-700"
+                      : "text-slate-600"
+                  )}
+                >
+                  {link.label}
+                  {pathname === link.href && (
+                    <motion.span
+                      layoutId="underline"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-green-600"
+                    />
+                  )}
+                </Link>
+              ))}
+            </div>
+
+            {/* CTA Actions */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Link href="/contact" className="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-green-700 transition-colors">
+                <Phone className="w-4 h-4" />
+                <span>(555) 987-6543</span>
               </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="/emergency"
-              className="hidden md:flex items-center gap-2 text-xs font-bold text-red-600 hover:text-red-700 transition-colors"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-              </span>
-              Emergency
-            </Link>
-            <Link href="/contact">
-              <Button size="sm" className="hidden sm:inline-flex rounded-full">
-                Book Appointment
+              <Button size="sm" className="hidden sm:inline-flex gap-2" asChild>
+                <Link href="/contact">
+                  <Calendar className="w-4 h-4" />
+                  Book Now
+                </Link>
               </Button>
-            </Link>
-            
-            <button
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden p-2 text-secondary-600 hover:bg-slate-100 rounded-full"
-              aria-label="Open menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+              
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors"
+              >
+                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
+        </nav>
+      </motion.header>
 
       {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setIsMobileMenuOpen(false)} />
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Mobile Menu Drawer */}
-      <div
-        className={cn(
-          "fixed inset-y-0 right-0 w-3/4 max-w-sm bg-white z-50 transform shadow-2xl md:hidden transition-transform duration-300 ease-in-out",
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        )}
-      >
-        <div className="flex flex-col h-full p-6">
-          <div className="flex items-center justify-between mb-8">
-            <span className="font-heading font-bold text-xl text-secondary-900">Menu</span>
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 hover:bg-slate-100 rounded-full"
-              aria-label="Close menu"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-          
-          <nav className="flex-1 flex flex-col gap-6">
-            {siteConfig.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "text-lg font-medium transition-colors",
-                  pathname === item.href ? "text-primary-600" : "text-secondary-700"
-                )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-white shadow-xl md:hidden flex flex-col"
+          >
+            <div className="flex items-center justify-between p-6 border-b border-slate-100">
+              <span className="font-heading font-bold text-lg text-slate-900">Menu</span>
+              <button
+                onClick={() => setIsOpen(false)}
+                aria-label="Close menu"
+                className="p-2 text-slate-500 hover:text-slate-800"
               >
-                {item.title}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="mt-auto space-y-4">
-            <Link href="/emergency" className="flex items-center gap-3 text-red-600 font-bold p-4 bg-red-50 rounded-xl">
-              <Phone className="w-5 h-5" />
-              Emergency Care
-            </Link>
-            <Link href="/contact">
-              <Button className="w-full rounded-full">Book Now</Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              <nav className="flex flex-col gap-6">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "text-lg font-medium transition-colors",
+                      pathname === link.href ? "text-green-700" : "text-slate-600"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <div className="h-px bg-slate-100 my-2" />
+                <Link
+                  href="/emergency"
+                  onClick={() => setIsOpen(false)}
+                  className="text-lg font-medium text-red-600 flex items-center gap-2"
+                >
+                  Emergency?
+                </Link>
+              </nav>
+            </div>
+            <div className="p-6 border-t border-slate-100 bg-slate-50">
+              <Button className="w-full" size="lg" asChild>
+                <Link href="/contact">Book Appointment</Link>
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
-  );
+  )
 }

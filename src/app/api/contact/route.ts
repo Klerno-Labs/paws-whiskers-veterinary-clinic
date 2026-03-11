@@ -1,25 +1,28 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { name, email, phone, subject, message } = body;
+    const body = await request.json()
+    const { name, email, phone, subject, message, _gotcha } = body
 
-    // Basic validation
-    if (!name || !email || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    // Honeypot check
+    if (_gotcha) {
+      return NextResponse.json({ success: true }, { status: 200 })
     }
 
-    // Here you would integrate with an email service like Resend, SendGrid, or Nodemailer.
-    // For this build, we simulate a successful response.
+    // Here you would typically:
+    // 1. Validate the data more thoroughly
+    // 2. Send an email via Resend, SendGrid, or Nodemailer
+    // 3. Save to a database (Supabase, MongoDB, etc.)
     
-    console.log("Received contact form submission:", { name, email, phone, subject, message });
+    console.log("Received contact form submission:", { name, email, phone, subject })
 
-    // Simulate delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Simulating API delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
 
-    return NextResponse.json({ success: true, message: "Form received" });
+    return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    console.error("Contact form error:", error)
+    return NextResponse.json({ success: false }, { status: 500 })
   }
 }

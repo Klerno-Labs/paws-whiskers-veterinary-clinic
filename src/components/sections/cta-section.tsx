@@ -1,39 +1,39 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { images } from "@/config/images";
+import { Button } from "@/components/ui/button"
+import { images } from "@/config/images"
+import Image from "next/image"
+import Link from "next/link"
 
-export function CTASection({ title = "Ready to Visit?", description = "Book an appointment today and experience the difference of compassionate, fear-free care." }: { title?: string; description?: string }) {
+export function CTASection({ title = "Ready to visit?", subtitle = "Book your appointment today and experience the difference." }: { title?: string, subtitle?: string }) {
   return (
-    <section className="py-24 bg-secondary-900 relative overflow-hidden text-white">
-      <div className="absolute inset-0">
+    <section className="py-24 bg-slate-900 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20">
         <Image
-          src={images.cta.src}
-          alt={images.cta.alt}
+          src={images["cta"].src}
+          alt={images["cta"].alt}
           fill
-          className="object-cover opacity-20"
+          className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary-900 via-secondary-900/90 to-transparent" />
       </div>
-      
-      <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-        <div className="max-w-xl">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold mb-4">{title}</h2>
-          <p className="text-slate-300 text-lg">{description}</p>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-          <Link href="/contact">
-            <Button size="lg" className="w-full bg-primary-600 hover:bg-primary-700 rounded-full text-white border-none">
-              Book Appointment
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900/80" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-white mb-6">
+            {title}
+          </h2>
+          <p className="text-xl text-slate-300 mb-8">
+            {subtitle}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-primary hover:bg-green-600 text-white text-lg h-14 px-8" asChild>
+              <Link href="/contact">Book Appointment</Link>
             </Button>
-          </Link>
-          <Link href="/services">
-            <Button variant="outline" size="lg" className="w-full border-slate-500 text-white hover:bg-white/10 rounded-full">
-              View Services
+            <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/20 hover:bg-white/20 text-lg h-14 px-8" asChild>
+              <Link href="/new-patients">New Patient Form</Link>
             </Button>
-          </Link>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

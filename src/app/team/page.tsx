@@ -1,85 +1,96 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import { images } from "@/config/images";
-import { Card, CardContent } from "@/components/ui/card";
-import { Mail } from "lucide-react";
+import { Metadata } from "next"
+import { CTASection } from "@/components/sections/cta-section"
+import { Card, CardContent } from "@/components/ui/card"
+import { images } from "@/config/images"
+import { MapPin, Linkedin } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Our Team",
-  description: "Meet our experienced team of veterinarians and support staff dedicated to your pet's health.",
-};
+  description: "Meet the compassionate and skilled team at Paws & Whiskers Veterinary Clinic.",
+}
 
 const team = [
   {
     name: "Dr. Emily Sato",
     role: "Lead Veterinarian",
-    creds: "DVM, Fear Free Certified",
-    bio: "Dr. Sato has over a decade of experience in general practice. She is passionate about pain management and making vet visits less stressful for pets.",
-    funFact: "She has 3 Golden Retrievers who are all named after cheese.",
-    image: images["team-1"],
+    credentials: "DVM, University of Colorado",
+    bio: "Dr. Sato founded our clinic with a vision of Fear Free veterinary medicine. She has 3 Golden Retrievers of her own and enjoys hiking on weekends.",
+    image: "team-1",
+    funFact: "Has climbed 14ers in Colorado with her dogs."
   },
   {
     name: "Dr. James Okafor",
     role: "Associate Veterinarian",
-    creds: "DVM",
-    bio: "Dr. Okafor specializes in exotic animals and soft tissue surgery. He loves solving complex medical cases and educating clients.",
-    funFact: "He is an avid bird watcher and owns a parrot named Kiwi.",
-    image: images["hero-alt"],
+    credentials: "DVM, Colorado State University",
+    bio: "Specializing in exotic animals and complex internal medicine, Dr. Okafor brings a wealth of knowledge to our team. He is also passionate about client education.",
+    image: "team-2",
+    funFact: "Owns a rescue lizard named 'Godzilla'."
   },
   {
     name: "Sarah Liu",
     role: "Veterinary Technician",
-    creds: "CVT",
-    bio: "Sarah is our head technician with a special interest in feline behavior. She ensures every patient feels safe and comfortable.",
-    funFact: "She is a certified cat whisperer (not really, but close).",
-    image: images["gallery-2"],
+    credentials: "CVT, Certified Fear Free",
+    bio: "Sarah is our cat whisperer. Her gentle handling techniques make even the most anxious felines feel at ease. She has been with us for 7 years.",
+    image: "team-3",
+    funFact: "Fosters kittens for the local shelter."
   },
-];
+  {
+    name: "Mike Johnson",
+    role: "Veterinary Assistant",
+    credentials: "Pursuing DVM",
+    bio: "Mike assists in surgery and manages our inventory. He is currently applying to vet school and hopes to return as a doctor one day.",
+    image: "hero-alt", // Reusing a generic doctor image
+    funFact: "Played college football."
+  }
+]
 
 export default function TeamPage() {
   return (
-    <div>
-      {/* Hero Overlay */}
-      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center">
-        <div className="absolute inset-0">
-          <Image src={images.about.src} alt="Team" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-secondary-900/70" />
-        </div>
-        <div className="relative z-10 text-center px-6 text-white">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold mb-6">Meet Your Neighbors</h1>
-          <p className="text-xl text-slate-200 max-w-2xl mx-auto">We are not just vets; we are fellow pet lovers dedicated to the Denver community.</p>
+    <>
+      {/* Hero */}
+      <section className="relative h-[400px] flex items-center justify-center bg-slate-900 overflow-hidden">
+        <img
+          src={images["about"].src}
+          alt="Team working"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        />
+        <div className="relative z-10 text-center text-white px-4">
+          <h1 className="text-4xl sm:text-5xl font-bold font-heading mb-4">Meet Your Neighbors</h1>
+          <p className="text-xl text-slate-200 max-w-2xl mx-auto">
+            A team of dedicated professionals treating your pets like family.
+          </p>
         </div>
       </section>
 
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {team.map((member) => (
-              <Card key={member.name} className="border-none shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="aspect-[4/5] relative">
-                  <Image src={member.image.src} alt={member.name} fill className="object-cover" />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-2xl font-heading font-bold text-secondary-900">{member.name}</h3>
-                  <p className="text-primary-600 font-medium">{member.role}</p>
-                  <p className="text-slate-500 text-sm mb-4">{member.creds}</p>
-                  <p className="text-secondary-600 text-sm mb-6">{member.bio}</p>
-                  
-                  <div className="bg-primary-50 p-4 rounded-lg mb-6">
-                    <p className="text-xs font-bold text-primary-700 uppercase tracking-wide">Fun Fact</p>
-                    <p className="text-sm text-secondary-700 italic">&ldquo;{member.funFact}&rdquo;</p>
+      {/* Team Grid */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {team.map((member, index) => (
+              <Card key={index} className="border-none shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
+                <div className="relative aspect-square overflow-hidden">
+                  <img
+                    src={images[member.image as keyof typeof images].src}
+                    alt={member.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                    <p className="text-white text-sm font-medium mb-2">{member.funFact}</p>
                   </div>
-
-                  <button className="flex items-center gap-2 text-sm font-semibold text-secondary-900 hover:text-primary-600 transition-colors">
-                    <Mail className="w-4 h-4" />
-                    Contact {member.name.split(' ')[1]}
-                  </button>
+                </div>
+                <CardContent className="p-6 text-center bg-white">
+                  <h3 className="font-heading font-bold text-xl text-slate-900">{member.name}</h3>
+                  <p className="text-primary font-medium text-sm mb-1">{member.role}</p>
+                  <p className="text-slate-500 text-xs mb-3">{member.credentials}</p>
+                  <p className="text-slate-600 text-sm line-clamp-2">{member.bio}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
         </div>
       </section>
-    </div>
-  );
+
+      <CTASection />
+    </>
+  )
 }

@@ -1,146 +1,153 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Loader2, CheckCircle2, AlertCircle } from "lucide-react"
 
 export function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+    _gotcha: "" // Honeypot
+  })
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
-    const formData = new FormData(e.currentTarget);
-    const honeypot = formData.get("_gotcha");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (formData._gotcha) return // Bot detected
 
-    if (honeypot) {
-      setIsSubmitting(false);
-      return; // Silent fail for bots
-    }
-
+    setStatus("loading")
+    
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          phone: formData.get("phone"),
-          subject: formData.get("subject"),
-          message: formData.get("message"),
-        }),
-      });
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      })
 
       if (res.ok) {
-        setIsSuccess(true);
-        e.currentTarget.reset();
+        setStatus("success")
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "", _gotcha: "" })
       } else {
-        setError("Something went wrong. Please try again.");
+        setStatus("error")
       }
-    } catch {
-      setError("Network error. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+    } catch (error) {
+      setStatus("error")
     }
-  };
-
-  if (isSuccess) {
-    return (
-      <div className="bg-green-50 border border-green-200 p-8 rounded-large text-center">
-        <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
-        <h3 className="text-xl font-bold text-green-900 mb-2">Message Sent!</h3>
-        <p className="text-green-700">Thank you for reaching out. We'll be in touch within 24 hours.</p>
-      </div>
-    );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-semibold text-secondary-900">Name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-            placeholder="Your full name"
-          />
+    <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
+      {status === "success" ? (
+        <div className="text-center py-12">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <CheckCircle2 className="w-8 h-8 text-green-600" />
+          </div>
+          <h3 className="text-2xl font-heading font-bold text-slate-900 mb-2">Message Sent!</h3>
+          <p className="text-slate-600">We'll be in touch within 24 hours.</p>
+          <Button onClick={() => setStatus("idle")} variant="outline" className="mt-6">Send another</Button>
         </div>
-        <div className="space-y-2">
-          <label htmlFor="phone" className="text-sm font-semibold text-secondary-900">Phone</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            required
-            className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-            placeholder="(555) 000-0000"
-          />
-        </div>
-      </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label htmlFor="name" className="text-sm font-medium text-slate-700">Full Name</label>
+              <Input 
+                id="name" 
+                name="name" 
+                value={formData.name} 
+                onChange={handleChange} 
+                required 
+                placeholder="John Doe" 
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-medium text-slate-700">Email Address</label>
+              <Input 
+                id="email" 
+                name="email" 
+                type="email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                required 
+                placeholder="john@example.com" 
+              />
+            </div>
+          </div>
 
-      <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-semibold text-secondary-900">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-          placeholder="you@example.com"
-        />
-      </div>
+          <div className="space-y-2">
+            <label htmlFor="phone" className="text-sm font-medium text-slate-700">Phone Number</label>
+            <Input 
+              id="phone" 
+              name="phone" 
+              type="tel" 
+              value={formData.phone} 
+              onChange={handleChange} 
+              required 
+              placeholder="(555) 123-4567" 
+            />
+          </div>
 
-      <div className="space-y-2">
-        <label htmlFor="subject" className="text-sm font-semibold text-secondary-900">Subject</label>
-        <select
-          id="subject"
-          name="subject"
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all bg-white"
-        >
-          <option value="General Inquiry">General Inquiry</option>
-          <option value="Appointment Request">Appointment Request</option>
-          <option value="Billing">Billing</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
+          <div className="space-y-2">
+            <label htmlFor="subject" className="text-sm font-medium text-slate-700">Subject</label>
+            <Input 
+              id="subject" 
+              name="subject" 
+              value={formData.subject} 
+              onChange={handleChange} 
+              required 
+              placeholder="How can we help?" 
+            />
+          </div>
 
-      <div className="space-y-2">
-        <label htmlFor="message" className="text-sm font-semibold text-secondary-900">Message</label>
-        <textarea
-          id="message"
-          name="message"
-          rows={4}
-          required
-          className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all"
-          placeholder="How can we help you and your pet?"
-        />
-      </div>
+          <div className="space-y-2">
+            <label htmlFor="message" className="text-sm font-medium text-slate-700">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              rows={4}
+              className="flex w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-white placeholder:text-slate-400 focus-visible:outline-none focus-visible:border-green-500 focus-visible:ring-2 focus-visible:ring-green-500/20 disabled:cursor-not-allowed disabled:opacity-50 min-h-[120px]"
+              placeholder="Tell us more about your pet..."
+            />
+          </div>
 
-      {error && (
-        <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 p-3 rounded-lg">
-          <AlertCircle className="w-4 h-4" />
-          {error}
-        </div>
+          {/* Honeypot */}
+          <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" onChange={handleChange} />
+
+          {status === "error" && (
+            <div className="flex items-center gap-2 text-red-600 bg-red-50 p-3 rounded-md text-sm">
+              <AlertCircle className="w-4 h-4" />
+              <span>Something went wrong. Please try again.</span>
+            </div>
+          )}
+
+          <Button 
+            type="submit" 
+            className="w-full h-12 text-base" 
+            disabled={status === "loading"}
+          >
+            {status === "loading" ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Sending...
+              </>
+            ) : (
+              "Send Message"
+            )}
+          </Button>
+        </form>
       )}
-
-      <Button type="submit" size="lg" disabled={isSubmitting} className="w-full rounded-full">
-        {isSubmitting ? (
-          <>
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Sending...
-          </>
-        ) : (
-          "Send Message"
-        )}
-      </Button>
-    </form>
-  );
+    </div>
+  )
 }

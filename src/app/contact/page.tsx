@@ -1,81 +1,81 @@
-import { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { ContactForm } from "@/components/forms/contact-form";
+import { Metadata } from "next"
+import { ContactForm } from "@/components/forms/contact-form"
+import { images } from "@/config/images"
+import { siteConfig } from "@/config/site"
+import { MapPin, Phone, Mail, Clock } from "lucide-react"
+import Image from "next/image"
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description: "Get in touch with Paws & Whiskers Veterinary Clinic. Book an appointment or ask a question.",
-};
+}
 
 export default function ContactPage() {
   return (
-    <div className="pt-10">
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 py-12 lg:py-24">
-        {/* Left: Form */}
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-heading font-bold text-secondary-900 mb-4">Get in Touch</h1>
-          <p className="text-secondary-600 mb-8">
-            Have a question or ready to book an appointment? Fill out the form and our team will get back to you within 24 hours.
-          </p>
-          <ContactForm />
-        </div>
+    <>
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h1 className="text-4xl sm:text-5xl font-bold font-heading text-slate-900 mb-6">Get in Touch</h1>
+            <p className="text-lg text-slate-600">
+              Have a question or ready to book? We'd love to hear from you. Send us a message or give us a call.
+            </p>
+          </div>
 
-        {/* Right: Info */}
-        <div className="space-y-12">
-          <div className="bg-primary-50 p-8 rounded-large">
-            <h2 className="text-2xl font-heading font-bold text-secondary-900 mb-6">Clinic Info</h2>
-            
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-primary-600 shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-bold text-secondary-900">Address</h3>
-                  <p className="text-secondary-600">3400 Pet Care Lane<br />Denver, CO 80202</p>
-                </div>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+            {/* Form */}
+            <div>
+              <ContactForm />
+            </div>
+
+            {/* Info */}
+            <div className="space-y-8">
+              <div className="rounded-2xl overflow-hidden shadow-xl relative aspect-[4/3]">
+                <Image
+                  src={images["contact"].src}
+                  alt={images["contact"].alt}
+                  fill
+                  className="object-cover"
+                />
               </div>
 
-              <div className="flex items-start gap-4">
-                <Phone className="w-6 h-6 text-primary-600 shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-bold text-secondary-900">Phone</h3>
-                  <a href="tel:5559876543" className="text-secondary-600 hover:text-primary-600 transition-colors">
-                    (555) 987-6543
-                  </a>
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-heading font-bold text-slate-900 mb-1">Location</h3>
+                  <p className="text-slate-600 text-sm">{siteConfig.contact.address}</p>
                 </div>
-              </div>
 
-              <div className="flex items-start gap-4">
-                <Mail className="w-6 h-6 text-primary-600 shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-bold text-secondary-900">Email</h3>
-                  <a href="mailto:care@pawsandwhiskers.vet" className="text-secondary-600 hover:text-primary-600 transition-colors">
-                    care@pawsandwhiskers.vet
-                  </a>
+                <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-heading font-bold text-slate-900 mb-1">Phone</h3>
+                  <p className="text-slate-600 text-sm">{siteConfig.contact.phone}</p>
                 </div>
-              </div>
 
-              <div className="flex items-start gap-4">
-                <Clock className="w-6 h-6 text-primary-600 shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-bold text-secondary-900">Hours</h3>
-                  <p className="text-secondary-600 text-sm leading-relaxed">
-                    Mon-Fri: 7:30am - 6pm<br />
-                    Saturday: 8am - 1pm<br />
-                    Sunday: Emergency Only
-                  </p>
+                <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-heading font-bold text-slate-900 mb-1">Email</h3>
+                  <p className="text-slate-600 text-sm">{siteConfig.contact.email}</p>
+                </div>
+
+                <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-heading font-bold text-slate-900 mb-1">Hours</h3>
+                  <p className="text-slate-600 text-sm leading-snug">{siteConfig.contact.hours}</p>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="rounded-large overflow-hidden h-[300px] bg-slate-200 relative">
-            {/* Static Map Placeholder */}
-             <div className="absolute inset-0 flex items-center justify-center bg-slate-100 text-slate-400">
-               Map Placeholder
-             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+      </section>
+    </>
+  )
 }
