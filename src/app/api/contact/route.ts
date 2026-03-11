@@ -1,17 +1,34 @@
-```typescript
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const data = await request.json();
+  try {
+    const body = await request.json();
+    const { name, email, phone, subject, message, _gotcha } = body;
 
-  // Validate the data here (e.g., check for required fields)
-  if (!data.name || !data.email || !data.message) {
-    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    // Honeypot check
+    if (_gotcha) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // In a real implementation, you would use Nodemailer, Resend, or SendGrid here.
+    // For this static export demo, we simulate success.
+    console.log("Form received:", { name, email, phone, subject, message });
+
+    return NextResponse.json(
+      { message: "Message sent successfully!" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-
-  // Simulate sending an email or saving to a database
-  // In a real application, you would integrate with an email service or database here
-
-  return NextResponse.json({ message: "Thank you! We'll be in touch within 24 hours." }, { status: 200 });
 }
-```

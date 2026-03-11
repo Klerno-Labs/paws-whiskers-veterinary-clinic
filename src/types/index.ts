@@ -1,21 +1,22 @@
-export interface TeamMember {
-  name: string;
-  role: string;
-  credentials: string;
-  bio: string;
-  imageKey: string;
+export interface NavLink {
+  label: string;
+  href: string;
 }
 
 export interface Service {
   title: string;
   description: string;
   price: string;
-  imageKey: string;
-  category: 'preventative' | 'dental' | 'surgery' | 'emergency';
+  details: string;
+  category: string;
+  icon: string; // Lucide icon name
 }
 
-export interface Testimonial {
-  quote: string;
-  author: string;
-  imageKey?: string;
+export interface TeamMember {
+  name: string;
+  role: string;
+  credentials: string;
+  bio: string;
+  funFact: string;
+  image: string;
 }

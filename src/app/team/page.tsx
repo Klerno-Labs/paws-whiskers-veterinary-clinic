@@ -1,96 +1,95 @@
-import { Metadata } from "next"
-import { CTASection } from "@/components/sections/cta-section"
-import { Card, CardContent } from "@/components/ui/card"
-import { images } from "@/config/images"
-import { MapPin, Linkedin } from "lucide-react"
+import { Metadata } from "next";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import Image from "next/image";
+import { images } from "@/config/images";
 
 export const metadata: Metadata = {
   title: "Our Team",
-  description: "Meet the compassionate and skilled team at Paws & Whiskers Veterinary Clinic.",
-}
+  description: "Meet our experienced veterinarians and support staff.",
+};
 
 const team = [
   {
     name: "Dr. Emily Sato",
     role: "Lead Veterinarian",
-    credentials: "DVM, University of Colorado",
-    bio: "Dr. Sato founded our clinic with a vision of Fear Free veterinary medicine. She has 3 Golden Retrievers of her own and enjoys hiking on weekends.",
-    image: "team-1",
-    funFact: "Has climbed 14ers in Colorado with her dogs."
+    creds: "DVM, Fear Free Certified",
+    bio: "Dr. Sato has 11 years of experience in small animal medicine. She specializes in internal medicine and building trust with nervous pets.",
+    fact: "Has 3 Golden Retrievers who love to hike.",
+    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=600&fit=crop&q=80",
   },
   {
     name: "Dr. James Okafor",
     role: "Associate Veterinarian",
-    credentials: "DVM, Colorado State University",
-    bio: "Specializing in exotic animals and complex internal medicine, Dr. Okafor brings a wealth of knowledge to our team. He is also passionate about client education.",
-    image: "team-2",
-    funFact: "Owns a rescue lizard named 'Godzilla'."
+    creds: "DVM",
+    bio: "Dr. Okafor is passionate about exotic animal care and soft tissue surgery. He brings a calm, steady presence to the clinic.",
+    fact: "Is a certified reptile expert.",
+    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=600&fit=crop&q=80",
   },
   {
     name: "Sarah Liu",
     role: "Veterinary Technician",
-    credentials: "CVT, Certified Fear Free",
-    bio: "Sarah is our cat whisperer. Her gentle handling techniques make even the most anxious felines feel at ease. She has been with us for 7 years.",
-    image: "team-3",
-    funFact: "Fosters kittens for the local shelter."
+    creds: "CVT",
+    bio: "Sarah is our head technician with 7 years of experience. She is a cat behavior specialist and helps manage our boarding facility.",
+    fact: "Rescues and fosters neonatal kittens.",
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&h=600&fit=crop&q=80",
   },
-  {
-    name: "Mike Johnson",
-    role: "Veterinary Assistant",
-    credentials: "Pursuing DVM",
-    bio: "Mike assists in surgery and manages our inventory. He is currently applying to vet school and hopes to return as a doctor one day.",
-    image: "hero-alt", // Reusing a generic doctor image
-    funFact: "Played college football."
-  }
-]
+];
 
 export default function TeamPage() {
   return (
-    <>
+    <main>
       {/* Hero */}
-      <section className="relative h-[400px] flex items-center justify-center bg-slate-900 overflow-hidden">
-        <img
-          src={images["about"].src}
-          alt="Team working"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        />
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="text-4xl sm:text-5xl font-bold font-heading mb-4">Meet Your Neighbors</h1>
-          <p className="text-xl text-slate-200 max-w-2xl mx-auto">
-            A team of dedicated professionals treating your pets like family.
+      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={images["gallery-2"].src}
+            alt="Team working"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-secondary/80" />
+        </div>
+        <div className="relative z-10 text-center text-white px-6 max-w-4xl">
+          <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
+            Meet Your Neighbors
+          </h1>
+          <p className="text-xl md:text-2xl text-slate-200 font-light">
+            A dedicated team of animal lovers ready to serve you.
           </p>
         </div>
       </section>
 
       {/* Team Grid */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <Card key={index} className="border-none shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden">
-                <div className="relative aspect-square overflow-hidden">
-                  <img
-                    src={images[member.image as keyof typeof images].src}
-                    alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
-                    <p className="text-white text-sm font-medium mb-2">{member.funFact}</p>
+      <section className="py-24 bg-[#f0fdf4]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {team.map((member, i) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <div className="bg-white rounded-3xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 group">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                      <p className="text-white text-sm mb-2">{member.bio}</p>
+                      <p className="text-accent font-semibold text-sm italic">"{member.fact}"</p>
+                    </div>
+                  </div>
+                  <div className="p-8">
+                    <div className="text-primary text-sm font-bold mb-1">{member.role}</div>
+                    <h3 className="text-2xl font-bold text-secondary mb-1">{member.name}</h3>
+                    <div className="text-slate-500 text-sm">{member.creds}</div>
                   </div>
                 </div>
-                <CardContent className="p-6 text-center bg-white">
-                  <h3 className="font-heading font-bold text-xl text-slate-900">{member.name}</h3>
-                  <p className="text-primary font-medium text-sm mb-1">{member.role}</p>
-                  <p className="text-slate-500 text-xs mb-3">{member.credentials}</p>
-                  <p className="text-slate-600 text-sm line-clamp-2">{member.bio}</p>
-                </CardContent>
-              </Card>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
-
-      <CTASection />
-    </>
-  )
+    </main>
+  );
 }

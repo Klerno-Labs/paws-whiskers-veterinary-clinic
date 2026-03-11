@@ -1,113 +1,86 @@
-import { Metadata } from "next"
-import { siteConfig } from "@/config/site"
-import { AlertTriangle, MapPin, Phone, Clock } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { Metadata } from "next";
+import { Button } from "@/components/ui/Button";
+import { Phone, Clock, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Emergency Care",
-  description: "Emergency veterinary services in Denver. We are here for you when you need us most.",
-}
+  title: "Emergency",
+  description: "Emergency veterinary care information and contact details.",
+};
 
 export default function EmergencyPage() {
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
-      {/* Urgent Hero */}
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-red-900/10 animate-pulse" />
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/20 text-red-300 border border-red-500/30 mb-8">
-            <AlertTriangle className="w-5 h-5" />
-            <span className="font-semibold uppercase tracking-wide text-sm">Emergency Care</span>
+    <main className="min-h-screen bg-secondary text-white">
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        
+        {/* Urgency Hero */}
+        <section className="text-center mb-20">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-danger rounded-full mb-6 animate-pulse shadow-[0_0_40px_rgba(239,68,68,0.5)]">
+            <AlertTriangle className="h-10 w-10 text-white" />
           </div>
-          
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-heading mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6">
             We Are Here For You
           </h1>
-          
-          <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-            If you are experiencing a pet emergency, please call us immediately or come directly to the clinic.
+          <p className="text-2xl text-slate-300 mb-10 max-w-2xl mx-auto">
+            If your pet is experiencing a medical emergency, please call us immediately.
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white h-16 px-10 text-xl gap-3 shadow-lg shadow-red-900/50" asChild>
-              <Link href={`tel:${siteConfig.contact.phone}`}>
-                <Phone className="w-6 h-6" />
-                Call Now: {siteConfig.contact.phone}
-              </Link>
-            </Button>
-            <div className="flex items-center gap-2 text-slate-400 text-sm">
-              <MapPin className="w-4 h-4" />
-              <span>{siteConfig.contact.address}</span>
-            </div>
-          </div>
-
-          <div className="mt-8 inline-flex items-center gap-3 bg-slate-800/50 px-6 py-3 rounded-full border border-slate-700">
-            <Clock className="w-5 h-5 text-green-400" />
-            <span className="font-medium">Current Hours: {siteConfig.contact.hours}</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Triage */}
-      <section className="py-24 bg-slate-800">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold font-heading mb-12 text-center">Is this an emergency?</h2>
           
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-slate-900 p-8 rounded-2xl border border-slate-700">
-              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center gap-2">
-                <AlertTriangle className="w-6 h-6" />
-                Life Threatening
-              </h3>
-              <ul className="space-y-3 text-slate-300 mb-6">
-                <li>• Difficulty breathing or choking</li>
-                <li>• Severe bleeding or trauma</li>
-                <li>• Loss of consciousness</li>
-                <li>• Inability to urinate or defecate</li>
-                <li>• Seizures</li>
-              </ul>
-              <p className="text-sm text-slate-400 italic mb-4">
-                If we are closed, please proceed immediately to the nearest 24-hour emergency hospital.
-              </p>
-              <Button className="w-full bg-red-600 hover:bg-red-700 text-white">Call 911 or ER</Button>
-            </div>
+          <a href="tel:5559876543">
+            <Button variant="danger" size="lg" className="rounded-full text-2xl px-10 py-6 h-auto animate-pulse">
+              <Phone className="mr-3 h-8 w-8" />
+              (555) 987-6543
+            </Button>
+          </a>
 
-            <div className="bg-slate-900 p-8 rounded-2xl border border-slate-700">
-              <h3 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
-                <Clock className="w-6 h-6" />
-                Urgent but Stable
-              </h3>
-              <ul className="space-y-3 text-slate-300 mb-6">
-                <li>• Vomiting or diarrhea (no blood)</li>
-                <li>• Limping or minor injury</li>
-                <li>• Loss of appetite</li>
-                <li>• Ear infection or skin issues</li>
-                <li>• Coughing or sneezing</li>
-              </ul>
-              <p className="text-sm text-slate-400 italic mb-4">
-                Please call us to schedule a same-day urgent care appointment.
-              </p>
-              <Button className="w-full bg-green-600 hover:bg-green-700 text-white" asChild>
-                <Link href={`tel:${siteConfig.contact.phone}`}>Call Clinic</Link>
-              </Button>
-            </div>
+          <div className="mt-8 flex justify-center items-center gap-2 text-slate-400">
+            <Clock className="h-5 w-5" />
+            <span>Mon-Fri 7:30am-6pm, Sat 8am-1pm</span>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Map Placeholder */}
-      <section className="py-24 bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-800 rounded-3xl overflow-hidden h-96 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-12 h-12 text-slate-500 mx-auto mb-4" />
-              <p className="text-slate-400">Interactive Map Loading...</p>
-              <p className="text-sm text-slate-500 mt-2">3400 Pet Care Lane, Denver, CO 80202</p>
-            </div>
+        {/* Triage Guide */}
+        <section className="grid md:grid-cols-2 gap-8 mb-20 max-w-5xl mx-auto">
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl hover:border-danger/50 transition-colors">
+            <h3 className="text-2xl font-bold text-danger mb-4">Life-Threatening?</h3>
+            <p className="text-slate-300 mb-6 leading-relaxed">
+              If your pet is unconscious, not breathing, bleeding severely, or having seizures, call 911 or the nearest emergency veterinary hospital immediately.
+            </p>
+            <div className="text-sm font-semibold text-slate-400">DO NOT WAIT.</div>
           </div>
-        </div>
-      </section>
-    </div>
-  )
+          <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl hover:border-primary/50 transition-colors">
+            <h3 className="text-2xl font-bold text-primary mb-4">Urgent but Stable?</h3>
+            <p className="text-slate-300 mb-6 leading-relaxed">
+              If your pet is vomiting, limping, or seems in pain but is conscious and breathing, please call us to alert the team that you are coming in.
+            </p>
+            <a href="tel:5559876543" className="text-primary font-bold hover:underline">Call (555) 987-6543</a>
+          </div>
+        </section>
+
+        {/* Map / Directions */}
+        <section className="text-center">
+          <h2 className="text-3xl font-bold mb-8">Find Us Fast</h2>
+          <div className="w-full h-[400px] bg-slate-700 rounded-3xl overflow-hidden relative">
+             {/* Placeholder Map */}
+             <div className="absolute inset-0 flex items-center justify-center bg-slate-800 text-slate-400">
+               <div className="text-center">
+                 <MapPin className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                 <p>Interactive Map Loading...</p>
+                 <p className="text-sm mt-2">3400 Pet Care Lane, Denver, CO</p>
+               </div>
+             </div>
+          </div>
+          <div className="mt-6">
+             <a 
+               href="https://maps.google.com/?q=3400+Pet+Care+Lane,+Denver,+CO+80202" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               className="text-primary hover:text-white transition-colors font-semibold underline"
+             >
+               Open in Google Maps
+             </a>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  );
 }

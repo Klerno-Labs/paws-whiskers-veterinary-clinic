@@ -1,76 +1,42 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
-const config = {
-  darkMode: ["class"],
+const config: Config = {
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "#16a34a",
-          foreground: "#ffffff",
+          foreground: "#FFFFFF",
         },
-        secondary: {
-          DEFAULT: "#1e293b",
-          foreground: "#ffffff",
-        },
-        accent: {
-          DEFAULT: "#86efac",
-          foreground: "#1e293b",
-        },
-        muted: {
-          DEFAULT: "#f1f5f9",
-          foreground: "#64748b",
-        },
-        card: {
-          DEFAULT: "#ffffff",
-          foreground: "#020817",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        secondary: "#1e293b",
+        accent: "#86efac",
+        background: "#f0fdf4",
+        surface: "#ffffff",
+        text: "#334155",
+        muted: "#94a3b8",
+        danger: "#ef4444",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        heading: ["var(--font-jakarta)", "sans-serif"],
-        accent: ["var(--font-comfortaa)", "cursive"],
+        heading: ["var(--font-heading)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        accent: ["var(--font-accent)", "sans-serif"],
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
+      borderRadius: {
+        large: "24px",
+        pill: "9999px",
       },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+      boxShadow: {
+        card: "0 4px 6px -1px rgba(30, 41, 59, 0.05), 0 2px 4px -1px rgba(30, 41, 59, 0.03)",
+        hover: "0 20px 25px -5px rgba(30, 41, 59, 0.1), 0 10px 10px -5px rgba(30, 41, 59, 0.04)",
+        modal: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config
-
-export default config
+  plugins: [],
+};
+export default config;
