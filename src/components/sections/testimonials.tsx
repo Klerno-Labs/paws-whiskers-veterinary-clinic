@@ -1,65 +1,66 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Quote } from "lucide-react";
 import Image from "next/image";
-import { Star, Quote } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { images } from "@/config/images";
 
 const testimonials = [
   {
     quote: "Dr. Sato saved our dog's life when he ate something he shouldn't have. We trust them completely.",
     author: "The Garcias",
-    image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=100&h=100&fit=crop&crop=face", // Generic user
+    role: "Dog Parents",
+    image: "gallery-1"
   },
   {
     quote: "Most gentle vet we've ever been to. Our anxious cat was actually calm here.",
     author: "Nina P.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
+    role: "Cat Parent",
+    image: "gallery-2"
   },
   {
     quote: "They take the time to explain everything. You can tell they genuinely love animals.",
     author: "Chris & Amanda B.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-  },
+    role: "Dog Parents",
+    image: "gallery-3"
+  }
 ];
 
-export default function Testimonials() {
+export function Testimonials() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-slate-50 -z-10 clip-path-polygon"></div>
+    <section className="py-24 bg-[#f0fdf4] relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <Image src={images["testimonial-bg"].src} alt="bg" fill className="object-cover" />
+      </div>
       
-      <div className="container-custom">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <Quote className="w-12 h-12 text-primary-200 mx-auto mb-4" />
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">What Our Clients Say</h2>
-          <p className="text-lg text-slate-600">Real stories from happy pets and their owners.</p>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 font-heading">Happy Pets, Happy Parents</h2>
+          <p className="text-lg text-slate-600">See what our community has to say about us.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, idx) => (
-            <div 
-              key={idx} 
-              className={cn(
-                "bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300",
-                idx === 1 && "md:-translate-y-4"
-              )}
+          {testimonials.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="bg-white p-8 rounded-[24px] shadow-card hover:shadow-lg transition-shadow"
             >
-              <div className="flex gap-1 text-yellow-400 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={18} fill="currentColor" />
-                ))}
-              </div>
-              <p className="text-slate-700 italic mb-6 leading-relaxed">"{testimonial.quote}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-200">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.author}
-                    width={100}
-                    height={100}
-                    className="w-full h-full object-cover"
-                  />
+              <Quote className="w-8 h-8 text-[#16a34a] mb-6 opacity-50" />
+              <p className="text-slate-700 mb-6 text-lg leading-relaxed">"{item.quote}"</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full overflow-hidden relative">
+                  <Image src={images[item.image as keyof typeof images].src} alt={item.author} fill className="object-cover" />
                 </div>
-                <span className="font-semibold text-slate-900 text-sm">{testimonial.author}</span>
+                <div>
+                  <p className="font-bold text-slate-900">{item.author}</p>
+                  <p className="text-sm text-slate-500">{item.role}</p>
+                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

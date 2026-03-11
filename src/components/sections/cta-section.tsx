@@ -1,37 +1,49 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { images } from "@/config/images";
+"use client";
 
-interface CtaSectionProps {
-  title?: string;
-  subtitle?: string;
-  buttonText?: string;
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+
+interface CTASectionProps {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
 }
 
-export default function CtaSection({ 
-  title = "Ready to Visit?", 
-  subtitle = "Book your appointment today and experience the difference of compassionate care.",
-  buttonText = "Book Appointment"
-}: CtaSectionProps) {
+export function CTASection({ title, subtitle, buttonText, buttonLink }: CTASectionProps) {
   return (
-    <section className="py-24 bg-secondary-900 relative overflow-hidden text-white">
-      <div className="absolute inset-0 opacity-30">
-        <Image
-          src={images["cta"].src}
-          alt={images["cta"].alt}
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary-900 to-secondary-900/80" />
-      </div>
-      
-      <div className="container-custom relative z-10 text-center max-w-3xl">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6">{title}</h2>
-        <p className="text-xl text-slate-300 mb-10">{subtitle}</p>
-        <Button asChild size="lg" className="bg-primary-600 hover:bg-primary-500 text-white text-lg px-8 h-14">
-          <Link href="/contact">{buttonText}</Link>
-        </Button>
+    <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
+      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl font-bold mb-6 font-heading"
+        >
+          {title}
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto"
+        >
+          {subtitle}
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          <Button href={buttonLink} size="lg" className="group">
+            {buttonText}
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,132 +1,90 @@
-import { Metadata } from "next";
+import { Hero } from "@/components/sections/hero";
+import { CTASection } from "@/components/sections/cta-section";
 import Image from "next/image";
-import HeroCentered from "@/components/sections/hero-centered";
-import CTASection from "@/components/sections/cta-section";
-import { Instagram } from "lucide-react";
 import { images } from "@/config/images";
+import { Button } from "@/components/ui/button";
+import { Mail, Linkedin, PawPrint } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Our Team",
-  description: "Meet our experienced veterinarians and support staff dedicated to your pet's health.",
+  description: "Meet our experienced veterinarians and support staff.",
 };
 
-const doctors = [
+const team = [
   {
     name: "Dr. Emily Sato",
     role: "Lead Veterinarian",
     credentials: "DVM, Fear Free Certified",
-    bio: "Dr. Sato has been with Paws & Whiskers for 11 years. She specializes in internal medicine and has a soft spot for Golden Retrievers.",
-    funFact: "Dr. Sato has 3 Golden Retrievers of her own named Max, Bella, and Charlie.",
-    image: images["team-1"],
+    bio: "Dr. Sato has over 11 years of experience in small animal medicine. She is passionate about pain management and making vet visits less stressful for pets.",
+    fact: "Has 3 Golden Retrievers named Mango, Papaya, and Coconut.",
+    image: "team-1"
   },
   {
     name: "Dr. James Okafor",
     role: "Associate Veterinarian",
-    credentials: "DVM, Exotic Animal Specialist",
-    bio: "Dr. Okafor joined us 5 years ago. He is passionate about providing top-tier care for all creatures, from dogs and cats to reptiles and birds.",
-    funFact: "He owns a python named Monty and a bearded dragon called Spike.",
-    image: { ...images["team-1"], src: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&h=1000&fit=crop&q=80", alt: "Dr James Okafor" },
+    credentials: "DVM",
+    bio: "Dr. Okafor specializes in exotic animal care and soft tissue surgery. He loves solving complex medical cases and educating clients about preventative care.",
+    fact: "Is an avid bird watcher and owns a parrot named Kiwi.",
+    image: "team-2"
   },
-];
-
-const staff = [
   {
     name: "Sarah Liu",
     role: "Veterinary Technician",
-    credentials: "CVT, 7 years experience",
-    bio: "Sarah is our head technician and a certified cat behavior specialist. She ensures every patient feels calm and safe.",
-    image: { ...images["team-1"], src: "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&h=1000&fit=crop&q=80", alt: "Sarah Liu" },
-  },
-  {
-    name: "Mike Ross",
-    role: "Veterinary Assistant",
-    credentials: "3 years experience",
-    bio: "Mike assists in surgery and handles most of our laboratory work. He is known for his gentle handling of nervous dogs.",
-    image: { ...images["team-1"], src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&h=1000&fit=crop&q=80", alt: "Mike Ross" },
-  },
-  {
-    name: "Jessica Davis",
-    role: "Client Services",
-    credentials: "Front Desk Manager",
-    bio: "Jessica is the friendly face you see when you walk in. She manages appointments and ensures smooth operations.",
-    image: { ...images["team-1"], src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&h=1000&fit=crop&q=80", alt: "Jessica Davis" },
-  },
+    credentials: "CVT",
+    bio: "Sarah leads our nursing team with 7 years of experience. She has a special interest in feline behavior and helps run our Kitten Kindergarten classes.",
+    fact: "Competitive cat show judge on weekends.",
+    image: "team-3"
+  }
 ];
 
 export default function TeamPage() {
   return (
     <>
-      {/* Full Width Hero Image */}
-      <div className="relative h-[50vh] min-h-[400px] w-full">
-        <Image
-          src={images["about"].src}
-          alt="Team of veterinarians"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-secondary-900/60 flex items-center justify-center">
-          <div className="text-center text-white px-4">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Meet Your Neighbors</h1>
-            <p className="text-xl text-slate-200 max-w-2xl mx-auto">
-              We are a team of dedicated animal lovers committed to providing the best care for your pets.
-            </p>
-          </div>
-        </div>
-      </div>
+      <Hero 
+        variant="center"
+        title="Meet Your Neighbors"
+        subtitle="Our team of highly trained professionals is dedicated to providing the best possible care for your furry family members."
+        imageKey="about"
+      />
 
       <section className="py-24 bg-white">
-        <div className="container-custom">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">Our Doctors</h2>
-            <div className="w-20 h-1 bg-primary-600"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
-            {doctors.map((doctor, idx) => (
-              <div key={idx} className="group bg-slate-50 rounded-3xl p-8 flex flex-col md:flex-row gap-8 items-center md:items-start hover:shadow-lg transition-shadow">
-                <div className="relative w-48 h-48 flex-shrink-0 rounded-2xl overflow-hidden">
-                  <Image
-                    src={doctor.image.src}
-                    alt={doctor.image.alt}
-                    fill
-                    className="object-cover"
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {team.map((member, idx) => (
+              <div key={idx} className="group">
+                <div className="relative rounded-[24px] overflow-hidden aspect-[3/4] mb-6 shadow-card">
+                  <Image 
+                    src={images[member.image as keyof typeof images].src} 
+                    alt={member.name} 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-2xl font-bold text-slate-900">{doctor.name}</h3>
-                  <p className="text-primary-600 font-semibold mb-1">{doctor.role}</p>
-                  <p className="text-sm text-slate-500 mb-4">{doctor.credentials}</p>
-                  <p className="text-slate-600 leading-relaxed mb-4">{doctor.bio}</p>
-                  <div className="bg-white p-4 rounded-xl border border-slate-100">
-                    <p className="text-sm font-semibold text-slate-900 mb-1">Fun Fact:</p>
-                    <p className="text-sm text-slate-600 italic">{doctor.funFact}</p>
+                  {/* Social Overlay */}
+                  <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                    <button className="p-3 bg-white/20 backdrop-blur-md rounded-full hover:bg-white/40 transition-colors text-white">
+                      <Linkedin className="w-5 h-5" />
+                    </button>
+                    <button className="p-3 bg-white/20 backdrop-blur-md rounded-full hover:bg-white/40 transition-colors text-white">
+                      <Mail className="w-5 h-5" />
+                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">Support Staff</h2>
-            <div className="w-20 h-1 bg-primary-600"></div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {staff.map((member, idx) => (
-              <div key={idx} className="bg-white border border-slate-100 rounded-2xl p-6 text-center hover:shadow-md transition-shadow">
-                <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden mb-4">
-                  <Image
-                    src={member.image.src}
-                    alt={member.image.alt}
-                    fill
-                    className="object-cover"
-                  />
+                
+                <h3 className="text-2xl font-bold text-slate-900 font-heading">{member.name}</h3>
+                <p className="text-[#16a34a] font-semibold mb-3">{member.role}</p>
+                <p className="text-sm text-slate-500 font-medium mb-4">{member.credentials}</p>
+                
+                <div className="space-y-4">
+                  <p className="text-slate-600 text-sm leading-relaxed border-l-2 border-[#16a34a] pl-4">
+                    {member.bio}
+                  </p>
+                  <div className="flex items-start gap-3 bg-[#f0fdf4] p-4 rounded-xl">
+                    <PawPrint className="w-5 h-5 text-[#16a34a] shrink-0 mt-0.5" />
+                    <p className="text-sm text-slate-700 italic">
+                      <span className="font-semibold not-italic">Fun Fact:</span> {member.fact}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">{member.name}</h3>
-                <p className="text-primary-600 font-medium mb-1">{member.role}</p>
-                <p className="text-sm text-slate-500 mb-4">{member.credentials}</p>
-                <p className="text-slate-600 text-sm leading-relaxed">{member.bio}</p>
               </div>
             ))}
           </div>
@@ -134,9 +92,10 @@ export default function TeamPage() {
       </section>
 
       <CTASection 
-        title="Join Our Pack?"
-        subtitle="We are always looking for passionate animal lovers to join our team."
+        title="Join Our Pack"
+        subtitle="We are always looking for compassionate, talented individuals to join our team."
         buttonText="View Careers"
+        buttonLink="/contact"
       />
     </>
   );

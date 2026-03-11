@@ -1,111 +1,101 @@
-import { Metadata } from "next";
-import HeroCentered from "@/components/sections/hero-centered";
-import FAQ from "@/components/sections/faq";
-import CTASection from "@/components/sections/cta-section";
-import { siteConfig } from "@/config/site";
-import { Stethoscope, Syringe, HeartPulse, Scissors, Briefcase, PawPrint } from "lucide-react";
+import { Hero } from "@/components/sections/hero";
+import { CTASection } from "@/components/sections/cta-section";
+import { CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
-export const metadata: Metadata = {
-  title: "Services",
+export const metadata = {
+  title: "Our Services",
   description: "Comprehensive veterinary services including wellness exams, dental care, surgery, and emergency care.",
 };
 
 const services = [
   {
-    icon: Stethoscope,
-    title: "Wellness Exams",
+    name: "Wellness Exam",
     price: "$65",
-    description: "Regular check-ups are the foundation of good health. We perform comprehensive nose-to-tail examinations to detect problems early."
+    description: "A comprehensive nose-to-tail physical examination to assess your pet's overall health.",
+    included: ["Physical assessment", "Vaccination review", "Parasite screening", "Nutrition consult"]
   },
   {
-    icon: Syringe,
-    title: "Vaccinations",
+    name: "Vaccinations",
     price: "From $25",
-    description: "Protect your pet from preventable diseases. We offer core and lifestyle vaccines tailored to your pet's risk factors."
+    description: "Core and lifestyle vaccines to protect your pet from preventable diseases.",
+    included: ["Rabies", "Distemper", "Bordetella", "Lyme Disease"]
   },
   {
-    icon: HeartPulse,
-    title: "Dental Care",
+    name: "Dental Cleaning",
     price: "$280",
-    description: "Dental health is vital for overall well-being. Our cleaning procedures remove plaque and tartar while checking for oral disease."
+    description: "Professional cleaning while under anesthesia to remove tartar and plaque.",
+    included: ["Full scaling", "Polishing", "Oral exam", "At-home care tips"]
   },
   {
-    icon: Scissors,
-    title: "Spay/Neuter",
+    name: "Spay/Neuter",
     price: "From $250",
-    description: "Routine spay and neuter surgeries are performed with the highest standards of care and pain management."
+    description: "Safe routine surgery performed with advanced pain management.",
+    included: ["Pre-anesthetic bloodwork", "Pain medication", "Monitoring", "Post-op care"]
   },
   {
-    icon: PawPrint,
-    title: "Pet Boarding",
-    price: "$45/night",
-    description: "Climate-controlled, supervised boarding for when you're away. Medical boarding available for pets with special needs."
-  },
-  {
-    icon: Briefcase,
-    title: "Emergency Care",
+    name: "Emergency Care",
     price: "Varies",
-    description: "Urgent care during business hours. We prioritize sick and injured pets to get them the help they need fast."
+    description: "Urgent care available during business hours for sudden illness or injury.",
+    included: ["Triage assessment", "Diagnostic imaging", "Stabilization", "Critical care"]
   },
+  {
+    name: "Pet Boarding",
+    price: "$45/night",
+    description: "Climate-controlled, supervised stays for when you're away.",
+    included: ["Daily walks", "Playtime", "Medication administration", " cozy bedding"]
+  }
 ];
 
 export default function ServicesPage() {
   return (
     <>
-      <HeroCentered 
-        title="Our Services" 
-        subtitle="Compassionate, comprehensive care for every stage of your pet's life."
+      <Hero 
+        variant="center"
+        title="Our Services"
+        subtitle="From preventative care to emergency surgery, we offer a full suite of medical services to keep your pet healthy at every stage of life."
+        imageKey="about"
       />
-      
+
       <section className="py-24 bg-white">
-        <div className="container-custom">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, idx) => (
-              <div key={idx} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-primary-600 shadow-sm mb-6 group-hover:bg-primary-600 group-hover:text-white transition-colors">
-                  <service.icon size={28} />
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.05 }}
+                className="bg-[#f0fdf4] rounded-[24px] p-8 border border-slate-100 hover:shadow-lg transition-shadow"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900">{service.name}</h3>
+                  <span className="bg-[#16a34a] text-white px-3 py-1 rounded-full text-sm font-bold">
+                    {service.price}
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{service.title}</h3>
-                <p className="text-primary-600 font-semibold mb-4">{service.price}</p>
-                <p className="text-slate-600 leading-relaxed">{service.description}</p>
-              </div>
+                <p className="text-slate-600 mb-6 leading-relaxed">{service.description}</p>
+                <ul className="space-y-2">
+                  {service.included.map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-700">
+                      <CheckCircle2 className="w-4 h-4 text-[#16a34a]" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-slate-50">
-        <div className="container-custom max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Pricing Transparency</h2>
-            <p className="text-slate-600">We believe in honest pricing. Here is what is included in some of our common services.</p>
-          </div>
-          
-          <div className="space-y-4">
-            <details className="bg-white rounded-xl shadow-sm group open:shadow-md transition-all">
-              <summary className="p-6 cursor-pointer font-semibold text-slate-900 list-none flex justify-between items-center">
-                <span>What's included in a Wellness Exam?</span>
-                <span className="transition-transform group-open:rotate-180">▼</span>
-              </summary>
-              <div className="px-6 pb-6 text-slate-600 leading-relaxed">
-                Our comprehensive exam includes a full physical assessment (eyes, ears, mouth, heart, lungs, abdomen, musculoskeletal), weight check, nutritional counseling, and vaccine recommendations. We also answer any questions you have about your pet's behavior or care.
-              </div>
-            </details>
-            
-            <details className="bg-white rounded-xl shadow-sm group open:shadow-md transition-all">
-              <summary className="p-6 cursor-pointer font-semibold text-slate-900 list-none flex justify-between items-center">
-                <span>What's included in Dental Cleaning?</span>
-                <span className="transition-transform group-open:rotate-180">▼</span>
-              </summary>
-              <div className="px-6 pb-6 text-slate-600 leading-relaxed">
-                Price includes anesthesia monitoring, scaling (ultrasonic and hand), polishing, and a full oral exam. Extractions and antibiotics are additional costs if needed. We provide a detailed estimate before any additional procedures.
-              </div>
-            </details>
-          </div>
-        </div>
-      </section>
-
-      <CTASection />
+      <CTASection 
+        title="Have Questions?"
+        subtitle="Our team is happy to discuss pricing and treatment options for your specific needs."
+        buttonText="Contact Us"
+        buttonLink="/contact"
+      />
     </>
   );
 }
