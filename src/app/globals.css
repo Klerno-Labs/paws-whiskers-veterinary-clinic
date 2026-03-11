@@ -2,35 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-  }
-
-  body {
-    @apply bg-[#f0fdf4] text-secondary-800 font-sans antialiased;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-secondary-900 tracking-tight;
-  }
+:root {
+  --background: 240 10% 98%;
+  --foreground: 222 47% 11%;
 }
 
-@layer components {
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-  
-  .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
-  }
+body {
+  color: rgb(var(--foreground));
+  background: #f0fdf4; /* Light Green tint from config */
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
 
-  .glass-nav {
-    @apply bg-white/80 backdrop-blur-xl border border-slate-200/60 shadow-sm;
-  }
-  
-  .blob-bg {
-    @apply absolute top-0 right-0 w-96 h-96 bg-green-200/50 rounded-full blur-[80px] -z-10 mix-blend-multiply filter opacity-70;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { Menu, X, Phone, PawPrint } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 
-export default function Navbar() {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -21,7 +21,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
@@ -30,126 +29,111 @@ export default function Navbar() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "py-2" : "py-4"
+          "fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl z-50 transition-all duration-300 rounded-[9999px]",
+          isScrolled
+            ? "bg-white/90 backdrop-blur-xl shadow-card py-3 border border-slate-200/60"
+            : "bg-white/80 backdrop-blur-lg py-4"
         )}
       >
-        <div className="container-custom">
-          <nav className={cn(
-            "glass-nav rounded-full px-6 py-3 flex items-center justify-between transition-all duration-300",
-            isScrolled ? "shadow-md" : "shadow-sm"
-          )}>
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-primary-600 text-white p-1.5 rounded-lg group-hover:bg-primary-700 transition-colors">
-                <div className="w-6 h-6 bg-current rounded-md flex items-center justify-center">
-                  <div className="w-3 h-3 bg-white/80 rounded-full mb-1 ml-0.5"></div>
-                  <div className="flex gap-0.5 -mt-1 ml-1">
-                    <div className="w-1.5 h-1.5 bg-white/80 rounded-full"></div>
-                    <div className="w-1.5 h-1.5 bg-white/80 rounded-full"></div>
-                    <div className="w-1.5 h-1.5 bg-white/80 rounded-full"></div>
-                  </div>
-                </div>
-              </div>
-              <span className="font-heading font-bold text-xl text-slate-800 hidden sm:block">
-                Paws & Whiskers
-              </span>
-            </Link>
+        <div className="flex items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-2 font-heading font-bold text-xl text-secondary-900 hover:text-primary-600 transition-colors">
+            <PawPrint className="w-6 h-6 text-primary-600" />
+            <span className="hidden sm:inline">Paws & Whiskers</span>
+            <span className="sm:hidden">P&W</span>
+          </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8">
-              {siteConfig.navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "text-sm font-medium hover:text-primary-600 transition-colors",
-                    pathname === link.href ? "text-primary-600" : "text-slate-600"
-                  )}
-                >
-                  {link.title}
-                </Link>
-              ))}
-            </div>
-
-            {/* Right Actions */}
-            <div className="flex items-center gap-4">
-              <Link 
-                href="/emergency" 
-                className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-red-600 bg-red-50 px-3 py-1.5 rounded-full hover:bg-red-100 transition-colors"
-              >
-                <Phone size={14} className="animate-pulse" />
-                Emergency
-              </Link>
-              
-              <Button asChild size="sm" className="hidden md:inline-flex">
-                <Link href="/contact">Book Now</Link>
-              </Button>
-
-              {/* Mobile Menu Trigger */}
-              <button
-                onClick={() => setIsMobileMenuOpen(true)}
-                aria-label="Open menu"
-                className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg"
-              >
-                <Menu size={24} />
-              </button>
-            </div>
-          </nav>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <div
-        className={cn(
-          "fixed inset-0 bg-black/50 z-[60] transition-opacity duration-300 md:hidden",
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        )}
-        onClick={() => setIsMobileMenuOpen(false)}
-      />
-
-      {/* Mobile Menu Drawer */}
-      <div
-        className={cn(
-          "fixed top-0 right-0 bottom-0 w-[80%] max-w-sm bg-white z-[70] shadow-2xl transform transition-transform duration-300 ease-out md:hidden",
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        )}
-      >
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-8">
-            <span className="font-heading font-bold text-xl text-slate-800">Menu</span>
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Close menu"
-              className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg"
-            >
-              <X size={24} />
-            </button>
-          </div>
-          
-          <nav className="flex flex-col gap-6">
-            {siteConfig.navLinks.map((link) => (
+          <nav className="hidden md:flex items-center gap-8">
+            {siteConfig.nav.map((item) => (
               <Link
-                key={link.href}
-                href={link.href}
+                key={item.href}
+                href={item.href}
                 className={cn(
-                  "text-lg font-medium",
-                  pathname === link.href ? "text-primary-600" : "text-slate-700"
+                  "text-sm font-medium transition-colors hover:text-primary-600",
+                  pathname === item.href
+                    ? "text-primary-700 font-semibold"
+                    : "text-secondary-600"
                 )}
               >
-                {link.title}
+                {item.title}
               </Link>
             ))}
           </nav>
 
-          <div className="mt-8 pt-8 border-t border-slate-100 flex flex-col gap-4">
-            <Link href="/emergency" className="flex items-center justify-center gap-2 text-red-600 font-semibold py-3 rounded-xl bg-red-50 hover:bg-red-100 transition-colors">
-              <Phone size={18} className="animate-pulse" />
-              Emergency Contact
+          <div className="flex items-center gap-4">
+            <Link
+              href="/emergency"
+              className="hidden md:flex items-center gap-2 text-xs font-bold text-red-600 hover:text-red-700 transition-colors"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+              </span>
+              Emergency
             </Link>
-            <Button asChild className="w-full">
-              <Link href="/contact">Book Appointment</Link>
-            </Button>
+            <Link href="/contact">
+              <Button size="sm" className="hidden sm:inline-flex rounded-full">
+                Book Appointment
+              </Button>
+            </Link>
+            
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden p-2 text-secondary-600 hover:bg-slate-100 rounded-full"
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setIsMobileMenuOpen(false)} />
+      )}
+
+      {/* Mobile Menu Drawer */}
+      <div
+        className={cn(
+          "fixed inset-y-0 right-0 w-3/4 max-w-sm bg-white z-50 transform shadow-2xl md:hidden transition-transform duration-300 ease-in-out",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        <div className="flex flex-col h-full p-6">
+          <div className="flex items-center justify-between mb-8">
+            <span className="font-heading font-bold text-xl text-secondary-900">Menu</span>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 hover:bg-slate-100 rounded-full"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          
+          <nav className="flex-1 flex flex-col gap-6">
+            {siteConfig.nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "text-lg font-medium transition-colors",
+                  pathname === item.href ? "text-primary-600" : "text-secondary-700"
+                )}
+              >
+                {item.title}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="mt-auto space-y-4">
+            <Link href="/emergency" className="flex items-center gap-3 text-red-600 font-bold p-4 bg-red-50 rounded-xl">
+              <Phone className="w-5 h-5" />
+              Emergency Care
+            </Link>
+            <Link href="/contact">
+              <Button className="w-full rounded-full">Book Now</Button>
+            </Link>
           </div>
         </div>
       </div>

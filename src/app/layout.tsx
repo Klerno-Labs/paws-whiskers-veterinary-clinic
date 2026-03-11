@@ -1,25 +1,96 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter, Comfortaa } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { siteConfig } from "@/config/site";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 
-const headingFont = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-heading", display: "swap" });
-const bodyFont = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const headingFont = Plus_Jakarta_Sans({ 
+  subsets: ["latin"], 
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const bodyFont = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-body",
+  display: "swap",
+});
+
+const accentFont = Comfortaa({ 
+  subsets: ["latin"], 
+  variable: "--font-accent",
+  weight: ["400", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pawsandwhiskers.vet"),
   title: {
-    default: "Paws & Whiskers Veterinary Clinic | Compassionate Care in Denver",
-    template: "%s | Paws & Whiskers"
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: "Compassionate, fear-free veterinary care in Denver, CO. Wellness exams, vaccinations, dental care, surgery, and emergency services.",
+  description: siteConfig.description,
+  keywords: ["veterinarian", "Denver", "vet clinic", "pet care", "emergency vet"],
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
-    title: "Paws & Whiskers Veterinary Clinic",
-    description: "Compassionate, fear-free veterinary care in Denver, CO.",
     type: "website",
     locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: "/og-image.jpg", // Add a real OG image in public folder later
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: ["/og-image.jpg"],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VeterinaryCare",
+  name: siteConfig.name,
+  image: "https://pawsandwhiskers.vet/og-image.jpg",
+  "@id": siteConfig.url,
+  url: siteConfig.url,
+  telephone: siteConfig.contact.phone,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "3400 Pet Care Lane",
+    addressLocality: "Denver",
+    addressRegion: "CO",
+    postalCode: "80202",
+    addressCountry: "US",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 39.7392,
+    longitude: -104.9903,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "07:30",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "08:00",
+      closes: "13:00",
+    },
+  ],
+  priceRange: "$$",
 };
 
 export default function RootLayout({
@@ -31,55 +102,16 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      </head>
-      <body className={`${headingFont.variable} ${bodyFont.variable} font-sans antialiased bg-[#f0fdf4] text-slate-900`}>
-        <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "VeterinaryCare",
-              "name": "Paws & Whiskers Veterinary Clinic",
-              "image": "https://images.unsplash.com/photo-1548199973-03cce0bbc87b",
-              "telephone": "(555) 987-6543",
-              "email": "care@pawsandwhiskers.vet",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "3400 Pet Care Lane",
-                "addressLocality": "Denver",
-                "addressRegion": "CO",
-                "postalCode": "80202",
-                "addressCountry": "US"
-              },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 39.7392,
-                "longitude": -104.9903
-              },
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                  "opens": "07:30",
-                  "closes": "18:00"
-                },
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": "Saturday",
-                  "opens": "08:00",
-                  "closes": "13:00"
-                }
-              ],
-              "priceRange": "$$"
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body className={`${headingFont.variable} ${bodyFont.variable} ${accentFont.variable} font-body antialiased`}>
+        <Navbar />
+        <main className="min-h-screen pt-20">{children}</main>
+        <Footer />
       </body>
     </html>
   );

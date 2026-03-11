@@ -14,7 +14,7 @@ const config: Config = {
           50: "#f0fdf4",
           100: "#dcfce7",
           200: "#bbf7d0",
-          300: "#86efac",
+          300: "#86efac", // Accent Green
           400: "#4ade80",
           500: "#22c55e",
           600: "#16a34a",
@@ -34,35 +34,30 @@ const config: Config = {
           700: "#334155",
           800: "#1e293b",
           900: "#0f172a",
-          950: "#020617",
         },
+        surface: "#ffffff",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        heading: ["var(--font-jakarta)", "sans-serif"],
+        heading: ["var(--font-heading)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        accent: ["var(--font-accent)", "cursive"],
       },
       borderRadius: {
-        '4xl': '2rem',
+        "small": "8px",
+        "medium": "16px",
+        "large": "24px",
+        "pill": "9999px",
       },
-      animation: {
-        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
-        'blob': 'blob 7s infinite',
+      boxShadow: {
+        card: "0 4px 6px -1px rgba(30, 41, 59, 0.05), 0 2px 4px -1px rgba(30, 41, 59, 0.03)",
+        hover: "0 20px 25px -5px rgba(30, 41, 59, 0.1), 0 10px 10px -5px rgba(30, 41, 59, 0.04)",
+        modal: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
       },
-      keyframes: {
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        blob: {
-          '0%': { transform: 'translate(0px, 0px) scale(1)' },
-          '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-          '100%': { transform: 'translate(0px, 0px) scale(1)' },
-        },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
-
 export default config;

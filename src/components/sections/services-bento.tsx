@@ -1,121 +1,96 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { images } from "@/config/images";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Stethoscope, Syringe, HeartPulse, Bone, ShieldCheck, Scissors } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 const services = [
   {
     title: "Wellness Exams",
-    price: "$65",
-    description: "Comprehensive nose-to-tail checkup to keep your pet healthy year-round.",
-    icon: "🩺",
+    description: "Comprehensive nose-to-tail checkups to keep your pet healthy year-round.",
+    icon: Stethoscope,
     size: "large",
-    image: "service-1"
+    price: "$65",
   },
   {
     title: "Vaccinations",
-    price: "From $25",
-    description: "Core and lifestyle vaccines tailored to your pet's needs.",
-    icon: "💉",
+    description: "Core and lifestyle vaccines tailored to your pet's risk factors.",
+    icon: ShieldCheck,
     size: "small",
-    image: "hero-alt"
+    price: "From $25",
   },
   {
-    title: "Dental Cleaning",
-    price: "$280",
-    description: "Full cleaning under anesthesia to prevent dental disease.",
-    icon: "🦷",
+    title: "Dental Care",
+    description: "Professional cleaning to prevent periodontal disease and tooth loss.",
+    icon: Scissors,
     size: "small",
-    image: "service-2"
+    price: "$280",
   },
   {
     title: "Surgery",
+    description: "Spay/neuter and soft tissue procedures performed with advanced safety.",
+    icon: Syringe,
+    size: "large",
     price: "From $250",
-    description: "Safe, routine spay/neuter and soft tissue procedures.",
-    icon: "✂️",
-    size: "wide",
-    image: "service-3"
-  }
+  },
+  {
+    title: "Emergency Care",
+    description: "Urgent care available during business hours for sudden illness or injury.",
+    icon: HeartPulse,
+    size: "small",
+    price: "Varies",
+  },
+  {
+    title: "Pet Boarding",
+    description: "Climate-controlled, supervised stays with medical oversight if needed.",
+    icon: Bone,
+    size: "small",
+    price: "$45/night",
+  },
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
 
 export function ServicesBento() {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 font-heading">Compassionate Care</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">From preventative exams to advanced surgery, we offer a full range of services to keep your best friend happy and healthy.</p>
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-secondary-900 mb-4">Our Services</h2>
+          <p className="text-secondary-600 max-w-2xl mx-auto">
+            From preventative care to advanced surgery, we offer a full range of medical services to keep your pet happy and healthy.
+          </p>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[250px]"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {services.map((service, idx) => {
-            const gridSpan = service.size === "large" ? "md:col-span-2 md:row-span-2" : 
-                             service.size === "wide" ? "md:col-span-2" : "md:col-span-1 md:row-span-1";
-            
-            return (
-              <motion.div
-                key={idx}
-                variants={itemVariants}
-                className={cn(
-                  "group relative rounded-[24px] overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 cursor-pointer",
-                  gridSpan
-                )}
-              >
-                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/0 transition-colors z-10" />
-                <Image
-                  src={images[service.image as keyof typeof images].src}
-                  alt={service.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
-                
-                <div className="absolute bottom-0 left-0 right-0 p-6 z-20 text-white">
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-3xl">{service.icon}</span>
-                    <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-sm font-semibold">
-                      {service.price}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2 font-heading">{service.title}</h3>
-                  <p className="text-slate-200 text-sm mb-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                    {service.description}
-                  </p>
-                  <Link href="/services" className="inline-flex items-center text-sm font-semibold hover:text-[#86efac] transition-colors">
-                    Learn More <ArrowRight className="w-4 h-4 ml-1" />
-                  </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[200px]">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className={cn(
+                "group bg-slate-50 rounded-large p-8 border border-slate-100 hover:shadow-hover transition-all duration-300 flex flex-col justify-between relative overflow-hidden",
+                service.size === "large" ? "md:col-span-2 lg:row-span-2" : ""
+              )}
+            >
+              <div className="relative z-10">
+                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary-600 mb-6 shadow-sm group-hover:bg-primary-600 group-hover:text-white transition-colors">
+                  <service.icon className="w-6 h-6" />
                 </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                <h3 className="text-2xl font-heading font-semibold text-secondary-900 mb-2">{service.title}</h3>
+                <p className="text-secondary-600">{service.description}</p>
+              </div>
+              <div className="relative z-10 mt-4 pt-4 border-t border-slate-200">
+                <span className="text-primary-700 font-bold">{service.price}</span>
+              </div>
+              
+              {/* Decorative bg */}
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary-100 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-500" />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
-}
-
-function cn(...classes: (string | boolean | undefined | null)[]) {
-  return classes.filter(Boolean).join(" ");
 }
