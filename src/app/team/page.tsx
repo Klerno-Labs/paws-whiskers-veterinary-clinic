@@ -1,95 +1,105 @@
-import { Metadata } from "next";
-import { ScrollReveal } from "@/components/ScrollReveal";
-import Image from "next/image";
-import { images } from "@/config/images";
+import Image from 'next/image'
+import Link from 'next/link'
+import { Heart, Instagram, Linkedin } from 'lucide-react'
+import { images } from '@/config/images'
 
-export const metadata: Metadata = {
-  title: "Our Team",
-  description: "Meet our experienced veterinarians and support staff.",
-};
+export default function Team() {
+  const doctors = [
+    {
+      name: "Dr. Emily Sato",
+      role: "Lead Veterinarian",
+      bio: "Dr. Sato has over 11 years of experience in small animal medicine. She is Fear Free Certified and has a special interest in dermatology and senior pet care.",
+      funFact: "She has 3 Golden Retrievers named Honey, Bear, and Maple.",
+      image: images["team-1"],
+      credentials: "DVM, Fear Free Certified"
+    },
+    {
+      name: "Dr. James Okafor",
+      role: "Associate Veterinarian",
+      bio: "Dr. Okafor joined us after completing his residency in internal medicine. He is our go-to expert for complex diagnostics and exotic animal care.",
+      funFact: "He is an avid bird watcher and owns a parrot named Kiwi.",
+      image: images["team-2"],
+      credentials: "DVM, Exotic Specialist"
+    }
+  ]
 
-const team = [
-  {
-    name: "Dr. Emily Sato",
-    role: "Lead Veterinarian",
-    creds: "DVM, Fear Free Certified",
-    bio: "Dr. Sato has 11 years of experience in small animal medicine. She specializes in internal medicine and building trust with nervous pets.",
-    fact: "Has 3 Golden Retrievers who love to hike.",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&h=600&fit=crop&q=80",
-  },
-  {
-    name: "Dr. James Okafor",
-    role: "Associate Veterinarian",
-    creds: "DVM",
-    bio: "Dr. Okafor is passionate about exotic animal care and soft tissue surgery. He brings a calm, steady presence to the clinic.",
-    fact: "Is a certified reptile expert.",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&h=600&fit=crop&q=80",
-  },
-  {
-    name: "Sarah Liu",
-    role: "Veterinary Technician",
-    creds: "CVT",
-    bio: "Sarah is our head technician with 7 years of experience. She is a cat behavior specialist and helps manage our boarding facility.",
-    fact: "Rescues and fosters neonatal kittens.",
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&h=600&fit=crop&q=80",
-  },
-];
+  const staff = [
+    {
+      name: "Sarah Liu",
+      role: "Veterinary Technician",
+      bio: "Sarah is our head technician with 7 years of experience. She is a certified expert in feline behavior and helps run our 'Cat Friendly' initiatives.",
+      image: images["team-3"],
+      credentials: "CVT"
+    }
+  ]
 
-export default function TeamPage() {
   return (
-    <main>
-      {/* Hero */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={images["gallery-2"].src}
-            alt="Team working"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-secondary/80" />
+    <>
+      {/* Hero with Team Photo */}
+      <section className="relative py-20 bg-secondary text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+           {/* Using an overlay image conceptually, here solid color for reliability */}
         </div>
-        <div className="relative z-10 text-center text-white px-6 max-w-4xl">
-          <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
-            Meet Your Neighbors
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-200 font-light">
-            A dedicated team of animal lovers ready to serve you.
-          </p>
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <h1 className="font-heading font-bold text-5xl mb-6">Meet Your Neighbors</h1>
+          <p className="text-xl text-slate-300 max-w-2xl mx-auto">We are a team of dedicated animal lovers who treat your pets as if they were our own.</p>
         </div>
       </section>
 
-      {/* Team Grid */}
-      <section className="py-24 bg-[#f0fdf4]">
+      {/* Doctors */}
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {team.map((member, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="bg-white rounded-3xl overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 group">
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                      <p className="text-white text-sm mb-2">{member.bio}</p>
-                      <p className="text-accent font-semibold text-sm italic">"{member.fact}"</p>
+          <h2 className="font-heading font-bold text-3xl text-secondary mb-12 text-center">Our Doctors</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+            {doctors.map((doc, idx) => (
+              <div key={idx} className="group bg-white rounded-[32px] overflow-hidden shadow-card hover:shadow-xl transition-all duration-500 border border-slate-100">
+                <div className="aspect-[4/3] overflow-hidden relative">
+                  <Image src={doc.image.src} alt={doc.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                </div>
+                <div className="p-8">
+                  <h3 className="font-heading font-bold text-2xl text-secondary mb-1">{doc.name}</h3>
+                  <p className="text-primary font-medium mb-4">{doc.credentials}</p>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">{doc.bio}</p>
+                  
+                  <div className="bg-green-50 rounded-xl p-4 flex gap-3 items-start mb-6">
+                    <Heart className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-xs font-bold text-primary uppercase tracking-wide">Fun Fact</span>
+                      <p className="text-sm text-secondary mt-1">{doc.funFact}</p>
                     </div>
                   </div>
-                  <div className="p-8">
-                    <div className="text-primary text-sm font-bold mb-1">{member.role}</div>
-                    <h3 className="text-2xl font-bold text-secondary mb-1">{member.name}</h3>
-                    <div className="text-slate-500 text-sm">{member.creds}</div>
+
+                  <div className="flex gap-4">
+                    <a href="#" className="text-slate-400 hover:text-primary transition-colors">
+                      <Linkedin className="w-5 h-5" />
+                    </a>
                   </div>
                 </div>
-              </ScrollReveal>
+              </div>
             ))}
           </div>
         </div>
       </section>
-    </main>
-  );
+
+      {/* Staff */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="font-heading font-bold text-3xl text-secondary mb-12 text-center">Veterinary Nurses & Support</h2>
+          <div className="flex flex-wrap justify-center gap-8">
+            {staff.map((member, idx) => (
+              <div key={idx} className="w-full md:w-[350px] bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-slate-50">
+                  <Image src={member.image.src} alt={member.name} width={128} height={128} className="object-cover" />
+                </div>
+                <h3 className="font-heading font-bold text-xl text-secondary">{member.name}</h3>
+                <p className="text-primary text-sm font-medium mb-3">{member.credentials}</p>
+                <p className="text-sm text-muted-foreground">{member.bio}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }

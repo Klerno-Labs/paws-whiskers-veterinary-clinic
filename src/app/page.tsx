@@ -1,210 +1,258 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/Button";
-import { ScrollReveal } from "@/components/ScrollReveal";
-import { images } from "@/config/images";
-import { siteConfig } from "@/config/site";
-import { Heart, Shield, Clock, Star } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: "Home",
-  description: "Compassionate veterinary care for dogs and cats in Denver, CO.",
-};
+import Image from 'next/image'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { Star, ArrowRight, Shield, Clock, Heart } from 'lucide-react'
+import { images } from '@/config/images'
+import { Button } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
 
 export default function Home() {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1, duration: 0.5 }
+    })
+  }
+
   const services = [
-    {
-      title: "Wellness Exams",
-      description: "Comprehensive nose-to-tail checkups to keep your pet healthy.",
-      price: "$65",
-      icon: Heart,
-      color: "bg-red-50 text-red-500",
-      hoverColor: "group-hover:bg-red-500 group-hover:text-white",
-    },
-    {
-      title: "Vaccinations",
-      description: "Core and lifestyle vaccines tailored to your pet's needs.",
-      price: "From $25",
-      icon: Shield,
-      color: "bg-blue-50 text-blue-500",
-      hoverColor: "group-hover:bg-blue-500 group-hover:text-white",
-    },
-    {
-      title: "Dental Care",
-      description: "Professional cleaning and oral health assessments.",
-      price: "$280",
-      icon: Star,
-      color: "bg-purple-50 text-purple-500",
-      hoverColor: "group-hover:bg-purple-500 group-hover:text-white",
-    },
-  ];
+    { title: "Wellness Exams", desc: "Comprehensive nose-to-tail checkups to keep your pet healthy.", price: "$65", icon: Shield, image: images["service-1"] },
+    { title: "Dental Cleaning", desc: "Professional cleaning to prevent disease and freshen breath.", price: "$280", icon: Heart, image: images["service-2"] },
+    { title: "Surgery", desc: "Safe, advanced surgical procedures with compassionate aftercare.", price: "From $250", icon: Star, image: images["service-3"] },
+    { title: "Vaccinations", desc: "Core and lifestyle vaccines tailored to your pet's needs.", price: "From $25", icon: Shield, image: images["service-1"] },
+  ]
 
   const testimonials = [
-    {
-      quote: "Dr. Sato saved our dog's life when he ate something he shouldn't have. We trust them completely.",
-      author: "The Garcias",
-    },
-    {
-      quote: "Most gentle vet we've ever been to. Our anxious cat was actually calm here.",
-      author: "Nina P.",
-    },
-    {
-      quote: "They take the time to explain everything. You can tell they genuinely love animals.",
-      author: "Chris & Amanda B.",
-    },
-  ];
+    { name: "The Garcias", text: "Dr. Sato saved our dog's life when he ate something he shouldn't have. We trust them completely." },
+    { name: "Nina P.", text: "Most gentle vet we've ever been to. Our anxious cat was actually calm here." },
+    { name: "Chris & Amanda B.", text: "They take the time to explain everything. You can tell they genuinely love animals." }
+  ]
 
   return (
     <>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VeterinaryCare",
+            "name": "Paws & Whiskers Veterinary Clinic",
+            "image": images["hero"].src,
+            "telephone": "(555) 987-6543",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "3400 Pet Care Lane",
+              "addressLocality": "Denver",
+              "addressRegion": "CO",
+              "postalCode": "80202",
+              "addressCountry": "US"
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "07:30",
+                "closes": "18:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "08:00",
+                "closes": "13:00"
+              }
+            ],
+            "priceRange": "$$"
+          })
+        }}
+      />
+
       {/* Hero Section */}
-      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/30 rounded-full blur-[100px] -z-10 translate-x-1/2 -translate-y-1/2" />
+      <section className="relative pt-10 pb-20 lg:pt-20 lg:pb-32 overflow-hidden bg-background">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/30 rounded-full blur-[80px] -z-10"></div>
+        
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-          <ScrollReveal>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-6">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Accepting New Patients
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            className="space-y-8"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-100 shadow-sm text-sm font-medium text-primary">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Now Accepting New Patients
             </div>
-            <h1 className="text-5xl lg:text-6xl font-heading font-bold text-secondary leading-tight mb-6">
+            
+            <h1 className="font-heading font-bold text-5xl lg:text-6xl text-secondary tracking-tight leading-tight">
               Compassionate Care for Your <span className="text-primary">Best Friends</span>
             </h1>
-            <p className="text-xl text-slate-600 mb-8 leading-relaxed max-w-lg">
-              We combine advanced medical technology with a gentle touch to ensure your pet feels safe, loved, and healthy.
+            
+            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+              Experience Fear-Free certified veterinary care in a warm, modern environment. We treat your pets like family.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href={siteConfig.links.contact}>
-                <Button variant="primary" size="lg" className="rounded-full">
-                  Book Appointment
-                </Button>
-              </Link>
-              <Link href={siteConfig.links.services}>
-                <Button variant="secondary" size="lg" className="rounded-full">
-                  Our Services
-                </Button>
-              </Link>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" className="text-base" asChild>
+                <Link href="/contact#book">Book Appointment</Link>
+              </Button>
+              <Button variant="secondary" size="lg" className="text-base" asChild>
+                <Link href="/services">Explore Services</Link>
+              </Button>
             </div>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
-            <div className="relative rounded-[32px] overflow-hidden shadow-2xl aspect-square lg:aspect-[4/3]">
-              <Image
-                src={images["hero"].src}
-                alt={images["hero"].alt}
-                fill
-                className="object-cover"
+
+            <div className="flex items-center gap-4 pt-4">
+              <div className="flex -space-x-2">
+                 {[1,2,3,4].map((i) => (
+                   <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+                     <Image src={`https://i.pravatar.cc/150?u=${i}`} alt={`Pet owner ${i}`} width={40} height={40} />
+                   </div>
+                 ))}
+              </div>
+              <div>
+                <div className="flex text-yellow-400 gap-0.5 mb-1">
+                  {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+                </div>
+                <p className="text-sm font-medium text-slate-600">5-Star Rated by Denver Locals</p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={0.4}
+            className="relative lg:h-[600px] w-full"
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-[32px] rotate-6"></div>
+            <div className="relative h-full w-full rounded-[32px] overflow-hidden shadow-2xl">
+              <Image 
+                src={images["hero"].src} 
+                alt={images["hero"].alt} 
+                fill 
+                className="object-cover hover:scale-105 transition-transform duration-700"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
-          </ScrollReveal>
+          </motion.div>
         </div>
       </section>
 
-      {/* Trust Bar */}
-      <section className="py-8 border-y border-slate-100 bg-white/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-          <span className="font-bold text-lg tracking-wider">AAHA Accredited</span>
-          <span className="font-bold text-lg tracking-wider">Fear Free Certified</span>
-          <span className="font-bold text-lg tracking-wider">Top Rated 2023</span>
-          <span className="font-bold text-lg tracking-wider">Denver Vet Choice</span>
-        </div>
-      </section>
-
-      {/* Services Preview (Bento) */}
-      <section className="py-24 md:py-32 bg-white">
+      {/* Services Preview */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <ScrollReveal>
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-4">
-                Comprehensive Veterinary Services
-              </h2>
-              <p className="text-lg text-slate-600">
-                From preventative care to advanced surgery, we offer a full range of services under one roof.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <ScrollReveal key={index} delay={index * 0.1}>
-                <div className="group bg-slate-50 p-8 rounded-3xl hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-slate-100">
-                  <div className={`w-14 h-14 rounded-2xl ${service.color} ${service.hoverColor} flex items-center justify-center mb-6 transition-colors duration-300`}>
-                    <service.icon className="w-7 h-7" />
-                  </div>
-                  <h3 className="text-xl font-bold text-secondary mb-2">{service.title}</h3>
-                  <p className="text-slate-600 mb-4 leading-relaxed">{service.description}</p>
-                  <div className="text-primary font-semibold">{service.price}</div>
-                </div>
-              </ScrollReveal>
-            ))}
+          <div className="text-center mb-16">
+            <h2 className="font-heading font-bold text-4xl text-secondary mb-4">Comprehensive Services</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">From routine check-ups to emergency surgery, we provide top-tier medical care tailored to your pet's specific needs.</p>
           </div>
 
-          <div className="mt-12 text-center">
-            <Link href={siteConfig.links.services}>
-              <Button variant="ghost" size="lg">
-                View All Services &rarr;
-              </Button>
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, index) => (
+              <Link href="/services" key={index} className="group block">
+                <motion.div 
+                  whileHover={{ y: -8 }}
+                  className="bg-white p-6 rounded-2xl border border-slate-100 shadow-card hover:shadow-hover transition-all duration-300 h-full flex flex-col"
+                >
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <service.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-heading font-bold text-xl mb-2">{service.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4 flex-grow">{service.desc}</p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="font-bold text-primary">{service.price}</span>
+                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Preview */}
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div className="max-w-2xl">
+              <h2 className="font-heading font-bold text-4xl text-secondary mb-4">Meet Our Experts</h2>
+              <p className="text-muted-foreground text-lg">Our team of board-certified veterinarians and experienced technicians are dedicated to the health and happiness of your pets.</p>
+            </div>
+            <Button variant="secondary" asChild>
+              <Link href="/team">View All Team Members</Link>
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[images["team-1"], images["team-2"], images["team-3"]].map((img, idx) => (
+              <div key={idx} className="group relative rounded-3xl overflow-hidden cursor-pointer">
+                <div className="aspect-[3/4] w-full">
+                  <Image src={img.src} alt={img.alt} width={img.width} height={img.height} className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                  <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <h3 className="text-white font-heading font-bold text-xl">Dr. {idx === 0 ? "Emily Sato" : idx === 1 ? "James Okafor" : "Sarah Liu"}</h3>
+                    <p className="text-accent text-sm mb-2">{idx === 2 ? "Veterinary Technician" : "Lead Veterinarian"}</p>
+                    <p className="text-slate-300 text-sm line-clamp-2">
+                      {idx === 0 ? "Fear Free Certified with 11 years of experience." : idx === 1 ? "Exotic animal specialist." : "Cat behavior specialist."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 md:py-32 bg-[#f0fdf4] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-           <Image src={images["testimonial-bg"].src} alt="" fill className="object-cover" />
-        </div>
+      <section className="py-24 bg-secondary text-white relative overflow-hidden">
+        <Image src={images["testimonial-bg"].src} alt="" fill className="object-cover opacity-10" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <ScrollReveal>
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-4">
-                What Pet Parents Say
-              </h2>
-              <p className="text-lg text-slate-600">
-                Don't just take our word for it. Here is what our community has to say.
-              </p>
-            </div>
-          </ScrollReveal>
+          <div className="text-center mb-16">
+            <h2 className="font-heading font-bold text-4xl mb-4">Happy Pets, Happy Owners</h2>
+            <p className="text-slate-300 max-w-2xl mx-auto">Don't just take our word for it. Here is what our community has to say.</p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((t, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="bg-white p-8 rounded-3xl shadow-card hover:shadow-lg transition-shadow relative">
-                  <div className="text-4xl text-primary/20 font-serif absolute top-6 left-6">"</div>
-                  <p className="text-slate-600 mb-6 relative z-10 leading-relaxed">{t.quote}</p>
-                  <div className="font-bold text-secondary">— {t.author}</div>
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10"
+              >
+                <div className="flex text-yellow-400 gap-0.5 mb-4">
+                  {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                 </div>
-              </ScrollReveal>
+                <p className="text-slate-200 mb-6 leading-relaxed">"{t.text}"</p>
+                <div className="font-bold text-white">— {t.name}</div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-secondary text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <ScrollReveal>
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
-              Ready to Visit?
-            </h2>
-            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-              Whether it's time for a routine checkup or you have a concern, we're here to help your pet live a long, happy life.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href={siteConfig.links.contact}>
-                <Button variant="primary" size="lg" className="rounded-full bg-white text-secondary hover:bg-slate-100 border-none">
-                  Book Appointment
-                </Button>
-              </Link>
-              <Link href={siteConfig.links["new-patients"]}>
-                <Button variant="secondary" size="lg" className="rounded-full text-white border-white hover:bg-white/10">
-                  New Patient Form
-                </Button>
-              </Link>
-            </div>
-          </ScrollReveal>
+      <section className="py-24 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px]"></div>
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <h2 className="font-heading font-bold text-4xl text-white mb-6">Ready to Visit Us?</h2>
+          <p className="text-green-100 text-xl mb-10 max-w-2xl mx-auto">Join the Paws & Whiskers family today. Book your pet's first appointment and experience the difference of compassionate care.</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-slate-50 border-none" asChild>
+              <Link href="/contact#book">Book Appointment Online</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10" asChild>
+              <Link href="tel:5559876543">Call (555) 987-6543</Link>
+            </Button>
+          </div>
         </div>
       </section>
     </>
-  );
+  )
 }

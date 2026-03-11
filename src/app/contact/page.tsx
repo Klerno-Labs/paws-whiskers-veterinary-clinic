@@ -1,202 +1,215 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { Metadata } from "next";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { ScrollReveal } from "@/components/ScrollReveal";
-import { MapPin, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import React, { useState } from 'react'
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/Button'
 
-export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [errorMsg, setErrorMsg] = useState("");
+export default function Contact() {
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [honeypot, setHoneypot] = useState('')
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
-    setErrorMsg("");
+    e.preventDefault()
+    if (honeypot) return // Bot detected
 
+    setStatus('loading')
+    
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
 
       if (res.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+        setStatus('success')
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
       } else {
-        setStatus("error");
-        setErrorMsg("Something went wrong. Please try again.");
+        setStatus('error')
       }
     } catch (err) {
-      setStatus("error");
-      setErrorMsg("Network error. Please try again.");
+      setStatus('error')
     }
-  };
+  }
 
   return (
-    <main className="pt-20">
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-24">
-        <div className="grid lg:grid-cols-2 gap-16">
+    <div className="pt-10">
+      {/* Split Section */}
+      <section className="py-20 bg-white" id="book">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16">
           
-          {/* Contact Form */}
-          <ScrollReveal>
-            <div className="bg-white p-8 md:p-10 rounded-3xl shadow-card border border-slate-100">
-              <h1 className="text-3xl md:text-4xl font-heading font-bold text-secondary mb-2">
-                Get in Touch
-              </h1>
-              <p className="text-slate-600 mb-8">We usually respond within 24 hours.</p>
+          {/* Form */}
+          <div>
+            <h1 className="font-heading font-bold text-4xl text-secondary mb-6">Get In Touch</h1>
+            <p className="text-muted-foreground mb-8">Book an appointment, ask a question, or just say hello.</p>
 
-              {status === "success" ? (
-                <div className="bg-green-50 text-green-800 p-6 rounded-2xl text-center">
-                  <CheckCircle2 className="h-12 w-12 mx-auto mb-3 text-green-600" />
-                  <h3 className="font-bold text-xl">Message Sent!</h3>
-                  <p>We'll get back to you shortly.</p>
-                  <button 
-                    onClick={() => setStatus("idle")}
-                    className="mt-4 text-sm underline text-green-700"
-                  >
-                    Send another message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
-                  <Input label="Name" name="name" value={formData.name} onChange={handleChange} required />
-                  <Input label="Email" type="email" name="email" value={formData.email} onChange={handleChange} required />
-                  <Input label="Phone" type="tel" name="phone" value={formData.phone} onChange={handleChange} />
-                  <Input label="Subject" name="subject" value={formData.subject} onChange={handleChange} />
-                  
-                  <div className="mt-6">
-                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
-                      Message <span className="text-red-500">*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl p-4 focus:outline-none focus:border-primary focus:bg-white transition-all"
-                      value={formData.message}
-                      onChange={handleChange}
+            {status === 'success' ? (
+              <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
+                <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <h3 className="font-heading font-bold text-xl text-green-900 mb-2">Message Sent!</h3>
+                <p className="text-green-700">We'll be in touch within 24 hours.</p>
+                <button onClick={() => setStatus('idle')} className="mt-4 text-sm text-green-800 underline">Send another</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-sm font-medium text-slate-700">Your Name</label>
+                    <input 
+                      id="name"
+                      name="name"
+                      type="text" 
                       required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full h-12 bg-slate-50 border border-slate-200 rounded-lg px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     />
                   </div>
-
-                  {errorMsg && <p className="text-danger text-sm mt-2">{errorMsg}</p>}
-
-                  <div className="mt-8">
-                    <Button type="submit" variant="primary" size="lg" className="w-full md:w-auto rounded-full" isLoading={status === "loading"}>
-                      Send Message
-                    </Button>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-medium text-slate-700">Email Address</label>
+                    <input 
+                      id="email"
+                      name="email"
+                      type="email" 
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full h-12 bg-slate-50 border border-slate-200 rounded-lg px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    />
                   </div>
-                </form>
-              )}
-            </div>
-          </ScrollReveal>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="phone" className="text-sm font-medium text-slate-700">Phone Number</label>
+                  <input 
+                    id="phone"
+                    name="phone"
+                    type="tel" 
+                    required
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full h-12 bg-slate-50 border border-slate-200 rounded-lg px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="subject" className="text-sm font-medium text-slate-700">Subject</label>
+                  <select 
+                    id="subject"
+                    name="subject"
+                    required
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="w-full h-12 bg-slate-50 border border-slate-200 rounded-lg px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none"
+                  >
+                    <option value="">Select a topic...</option>
+                    <option value="booking">Book Appointment</option>
+                    <option value="billing">Billing Question</option>
+                    <option value="medical">Medical Question</option>
+                    <option value="general">General Inquiry</option>
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium text-slate-700">Message</label>
+                  <textarea 
+                    id="message"
+                    name="message"
+                    rows={4}
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  ></textarea>
+                </div>
+
+                <input 
+                  type="text" 
+                  name="_gotcha" 
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  className="hidden" 
+                  tabIndex={-1} 
+                  autoComplete="off" 
+                />
+
+                {status === 'error' && (
+                  <div className="text-red-600 text-sm flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4" />
+                    Something went wrong. Please try again.
+                  </div>
+                )}
+
+                <Button type="submit" size="lg" className="w-full" disabled={status === 'loading'}>
+                  {status === 'loading' ? 'Sending...' : 'Send Message'}
+                  {status !== 'loading' && <Send className="ml-2 w-4 h-4" />}
+                </Button>
+              </form>
+            )}
+          </div>
 
           {/* Info */}
-          <ScrollReveal delay={0.2}>
-            <div className="space-y-12">
-              <div>
-                <h2 className="text-2xl font-bold text-secondary mb-6">Clinic Info</h2>
-                <ul className="space-y-6">
-                  <li className="flex items-start gap-4">
-                    <div className="bg-green-50 p-3 rounded-full text-primary">
-                      <MapPin className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Address</h3>
-                      <p className="text-slate-600">{siteConfig.contact.address}</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="bg-green-50 p-3 rounded-full text-primary">
-                      <Phone className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Phone</h3>
-                      <a href={`tel:${siteConfig.contact.phone}`} className="text-slate-600 hover:text-primary transition-colors">
-                        {siteConfig.contact.phone}
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="bg-green-50 p-3 rounded-full text-primary">
-                      <Mail className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Email</h3>
-                      <a href={`mailto:${siteConfig.contact.email}`} className="text-slate-600 hover:text-primary transition-colors">
-                        {siteConfig.contact.email}
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="bg-green-50 p-3 rounded-full text-primary">
-                      <Clock className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">Hours</h3>
-                      <p className="text-slate-600">
-                        Mon-Fri: 7:30am - 6:00pm<br />
-                        Sat: 8:00am - 1:00pm<br />
-                        Sun: Emergency Only
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Image Placeholder */}
-              <div className="rounded-3xl overflow-hidden shadow-lg h-64 md:h-80 relative">
-                 <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
-                    <span className="text-slate-400 font-medium">Clinic Exterior Photo</span>
-                 </div>
-              </div>
-            </div>
-          </ScrollReveal>
-
-        </div>
-      </div>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-[#f0fdf4]">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-secondary mb-10 text-center">Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            {[
-              { q: "Do you accept walk-ins?", a: "Yes, we accept walk-ins based on availability, but we strongly recommend booking an appointment to minimize wait times." },
-              { q: "What payment methods do you accept?", a: "We accept Cash, Credit Cards (Visa, Mastercard, Amex), Scratchpay, and CareCredit." },
-              { q: "Do you board exotic pets?", a: "We primarily board dogs and cats. Please contact us for exotic pet boarding availability." },
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm">
-                 <details className="group">
-                  <summary className="p-6 cursor-pointer font-semibold text-lg text-secondary hover:bg-slate-50 flex justify-between items-center">
-                    {item.q}
-                    <span className="transform group-open:rotate-180 transition-transform text-primary">+</span>
-                  </summary>
-                  <div className="px-6 pb-6 text-slate-600">
-                    {item.a}
+          <div className="space-y-12">
+            <div className="bg-background p-8 rounded-2xl">
+              <h3 className="font-heading font-bold text-xl text-secondary mb-6">Contact Information</h3>
+              <ul className="space-y-6">
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    <Phone className="w-5 h-5" />
                   </div>
-                 </details>
-              </div>
-            ))}
+                  <div>
+                    <p className="text-sm text-muted-foreground">Phone</p>
+                    <a href="tel:5559876543" className="text-lg font-semibold text-secondary hover:text-primary transition-colors">(555) 987-6543</a>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Email</p>
+                    <a href="mailto:care@pawsandwhiskers.vet" className="text-lg font-semibold text-secondary hover:text-primary transition-colors">care@pawsandwhiskers.vet</a>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Address</p>
+                    <p className="text-lg font-semibold text-secondary">3400 Pet Care Lane<br />Denver, CO 80202</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-secondary text-white p-8 rounded-2xl">
+               <h3 className="font-heading font-bold text-xl mb-4">Opening Hours</h3>
+               <ul className="space-y-3">
+                 <li className="flex justify-between border-b border-white/10 pb-2">
+                   <span>Mon - Fri</span>
+                   <span className="font-medium">7:30am - 6:00pm</span>
+                 </li>
+                 <li className="flex justify-between border-b border-white/10 pb-2">
+                   <span>Saturday</span>
+                   <span className="font-medium">8:00am - 1:00pm</span>
+                 </li>
+                 <li className="flex justify-between">
+                   <span>Sunday</span>
+                   <span className="text-accent font-medium">Emergency Only</span>
+                 </li>
+               </ul>
+            </div>
           </div>
+
         </div>
       </section>
-    </main>
-  );
+    </div>
+  )
 }
