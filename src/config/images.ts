@@ -1,96 +1,105 @@
+// ── Image Configuration ──────────────────────────────────────────────
+// ✏️  HOW TO CHANGE IMAGES:
+// 1. Find the slot you want to change below (e.g. "hero", "about", "service-1")
+// 2. Replace the "src" URL with your own image URL
+// 3. Update the "alt" text to describe the new image
+// 4. Save — every component on the site updates automatically
+
 export const images = {
-  // Homepage hero banner — the first image visitors see — REPLACE with a real Unsplash URL matching: "Modern office workspace with natural light"
   "hero": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Modern office workspace with natural light",
+    src: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&h=800&fit=crop&q=80",
+    alt: "Veterinarian holding a happy golden retriever puppy",
     width: 1200,
     height: 800,
   },
 
-  // Alternative hero image (used on inner pages or as fallback) — REPLACE with a real Unsplash URL matching: "Professional team collaborating in bright office"
   "hero-alt": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Professional team collaborating in bright office",
+    src: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=1200&h=800&fit=crop&q=80",
+    alt: "Cute gray cat looking up",
     width: 1200,
     height: 800,
   },
 
-  // About page or About section on homepage — REPLACE with a real Unsplash URL matching: "Business professionals in modern meeting room"
   "about": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Business professionals in modern meeting room",
+    src: "https://images.unsplash.com/photo-1612531386530-97286d97c2d2?w=1200&h=800&fit=crop&q=80",
+    alt: "Team of veterinarians smiling together in clinic",
     width: 1200,
     height: 800,
   },
 
-  // First service card image — REPLACE with a real Unsplash URL matching: "Creative professionals working together"
   "service-1": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Creative professionals working together",
+    src: "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=1200&h=800&fit=crop&q=80",
+    alt: "Veterinarian examining a dog's heart with a stethoscope",
     width: 1200,
     height: 800,
   },
 
-  // Second service card image — REPLACE with a real Unsplash URL matching: "Data analytics dashboard on screen"
   "service-2": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Data analytics dashboard on screen",
+    src: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=1200&h=800&fit=crop&q=80",
+    alt: "Veterinarian checking a cat's teeth",
     width: 1200,
     height: 800,
   },
 
-  // Third service card image — REPLACE with a real Unsplash URL matching: "Team workshop and brainstorming session"
   "service-3": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Team workshop and brainstorming session",
+    src: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=1200&h=800&fit=crop&q=80",
+    alt: "Veterinary technician preparing surgical equipment",
     width: 1200,
     height: 800,
   },
 
-  // Gallery image 1 — REPLACE with a real Unsplash URL matching: "Professional handshake in business setting"
   "gallery-1": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Professional handshake in business setting",
+    src: "https://images.unsplash.com/photo-1544568100-847a948585b9?w=1200&h=800&fit=crop&q=80",
+    alt: "Owner petting their dog at the vet clinic",
     width: 1200,
     height: 800,
   },
 
-  // Gallery image 2 — REPLACE with a real Unsplash URL matching: "Modern conference room with city view"
   "gallery-2": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Modern conference room with city view",
+    src: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=1200&h=800&fit=crop&q=80",
+    alt: "Happy dog running in grass",
     width: 1200,
     height: 800,
   },
 
-  // Team member photo — REPLACE with a real Unsplash URL matching: "Diverse team celebrating success"
   "team-1": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Diverse team celebrating success",
-    width: 1200,
-    height: 800,
+    src: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=1000&fit=crop&q=80",
+    alt: "Dr. Emily Sato portrait",
+    width: 800,
+    height: 1000,
   },
 
-  // Gallery image 3 — REPLACE with a real Unsplash URL matching: "Technology workspace with multiple screens"
   "gallery-3": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Technology workspace with multiple screens",
+    src: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=1200&h=800&fit=crop&q=80",
+    alt: "Veterinarian holding a cat",
     width: 1200,
     height: 800,
   },
 
-  // Call-to-action section background — REPLACE with a real Unsplash URL matching: "Innovation and technology concept"
   "cta": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Innovation and technology concept",
+    src: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200&h=800&fit=crop&q=80",
+    alt: "Cute kitten looking at camera",
     width: 1200,
     height: 800,
   },
 
-  // Testimonials section background or decoration — REPLACE with a real Unsplash URL matching: "Professional business environment"
   "testimonial-bg": {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-    alt: "Professional business environment",
+    src: "https://images.unsplash.com/photo-1535930749574-1399327ce78f?w=1200&h=800&fit=crop&q=80",
+    alt: "Dog and cat sitting together",
+    width: 1200,
+    height: 800,
+  },
+  
+  "emergency": {
+    src: "https://images.unsplash.com/photo-1606214174585-fe31582dc6ee?w=1200&h=800&fit=crop&q=80",
+    alt: "Veterinarian team in scrubs looking serious",
+    width: 1200,
+    height: 800,
+  },
+
+  "contact": {
+    src: "https://images.unsplash.com/photo-1633603131724-6a4fbac63321?w=1200&h=800&fit=crop&q=80",
+    alt: "Modern veterinary clinic building exterior",
     width: 1200,
     height: 800,
   },
