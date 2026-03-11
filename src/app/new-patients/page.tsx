@@ -12,7 +12,7 @@ export default function NewPatients() {
           <div>
             <h1 className="font-heading font-bold text-5xl text-secondary mb-6">Your First Visit</h1>
             <p className="text-xl text-muted-foreground mb-8">
-              We know visiting a new vet can be stressful for both you and your pet. We've made the process simple, transparent, and welcoming.
+              We know visiting a new vet can be stressful for both you and your pet. We&apos;ve made the process simple, transparent, and welcoming.
             </p>
             <div className="flex gap-4">
                <Button size="lg" asChild>

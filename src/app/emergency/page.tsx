@@ -46,7 +46,7 @@ export default function Emergency() {
 
           <div className="bg-slate-800 border border-slate-700 rounded-2xl p-8">
             <h2 className="font-heading font-bold text-2xl text-white mb-4">Urgent but Stable?</h2>
-            <p className="text-slate-300 mb-6">Signs include: vomiting, diarrhea, limping, or eating something they shouldn't have.</p>
+            <p className="text-slate-300 mb-6">Signs include: vomiting, diarrhea, limping, or eating something they shouldn&apos;t have.</p>
             <a href="tel:5559876543" className="text-white font-bold hover:underline">Call Us &rarr;</a>
           </div>
         </div>

@@ -53,7 +53,7 @@ export default function Contact() {
               <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
                 <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
                 <h3 className="font-heading font-bold text-xl text-green-900 mb-2">Message Sent!</h3>
-                <p className="text-green-700">We'll be in touch within 24 hours.</p>
+                <p className="text-green-700">We&apos;ll be in touch within 24 hours.</p>
                 <button onClick={() => setStatus('idle')} className="mt-4 text-sm text-green-800 underline">Send another</button>
               </div>
             ) : (

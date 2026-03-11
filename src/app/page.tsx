@@ -20,7 +20,7 @@ export default function Home() {
     { title: "Wellness Exams", desc: "Comprehensive nose-to-tail checkups to keep your pet healthy.", price: "$65", icon: Shield, image: images["service-1"] },
     { title: "Dental Cleaning", desc: "Professional cleaning to prevent disease and freshen breath.", price: "$280", icon: Heart, image: images["service-2"] },
     { title: "Surgery", desc: "Safe, advanced surgical procedures with compassionate aftercare.", price: "From $250", icon: Star, image: images["service-3"] },
-    { title: "Vaccinations", desc: "Core and lifestyle vaccines tailored to your pet's needs.", price: "From $25", icon: Shield, image: images["service-1"] },
+    { title: "Vaccinations", desc: "Core and lifestyle vaccines tailored to your pet&apos;s needs.", price: "From $25", icon: Shield, image: images["service-1"] },
   ]
 
   const testimonials = [
@@ -147,7 +147,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="font-heading font-bold text-4xl text-secondary mb-4">Comprehensive Services</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">From routine check-ups to emergency surgery, we provide top-tier medical care tailored to your pet's specific needs.</p>
+            <p className="text-muted-foreground max-w-2xl mx-auto">From routine check-ups to emergency surgery, we provide top-tier medical care tailored to your pet&apos;s specific needs.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -213,7 +213,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="font-heading font-bold text-4xl mb-4">Happy Pets, Happy Owners</h2>
-            <p className="text-slate-300 max-w-2xl mx-auto">Don't just take our word for it. Here is what our community has to say.</p>
+            <p className="text-slate-300 max-w-2xl mx-auto">Don&apos;t just take our word for it. Here is what our community has to say.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -242,7 +242,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px]"></div>
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <h2 className="font-heading font-bold text-4xl text-white mb-6">Ready to Visit Us?</h2>
-          <p className="text-green-100 text-xl mb-10 max-w-2xl mx-auto">Join the Paws & Whiskers family today. Book your pet's first appointment and experience the difference of compassionate care.</p>
+          <p className="text-green-100 text-xl mb-10 max-w-2xl mx-auto">Join the Paws & Whiskers family today. Book your pet&apos;s first appointment and experience the difference of compassionate care.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button variant="secondary" size="lg" className="bg-white text-primary hover:bg-slate-50 border-none" asChild>
               <Link href="/contact#book">Book Appointment Online</Link>

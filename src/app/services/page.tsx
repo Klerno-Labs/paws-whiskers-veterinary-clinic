@@ -45,7 +45,7 @@ export default function Services() {
       <section className="pt-10 pb-16 bg-background">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="font-heading font-bold text-5xl text-secondary mb-6">Our Services</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Compassionate, comprehensive care tailored to your pet's specific life stage and lifestyle.</p>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Compassionate, comprehensive care tailored to your pet&apos;s specific life stage and lifestyle.</p>
         </div>
       </section>
 
@@ -67,7 +67,7 @@ export default function Services() {
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">{service.description}</p>
                 
                 <div className="space-y-4">
-                  <h4 className="font-semibold text-secondary">What's Included:</h4>
+                  <h4 className="font-semibold text-secondary">What&apos;s Included:</h4>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {service.includes.map((item, i) => (
                       <li key={i} className="flex items-center gap-2 text-slate-600">

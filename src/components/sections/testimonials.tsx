@@ -35,7 +35,7 @@ export function Testimonials() {
             What Pet Parents Say
           </h2>
           <p className="text-lg text-slate-600">
-            Don't just take our word for it. Here is what our community has to say.
+            Don&apos;t just take our word for it. Here is what our community has to say.
           </p>
         </div>
 

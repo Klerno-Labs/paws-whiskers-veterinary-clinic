@@ -63,7 +63,7 @@ export function ServicesBento() {
             Complete Care for Every Stage of Life
           </h2>
           <p className="text-lg text-slate-600">
-            From puppy kisses to senior cuddles, we offer a full range of medical services tailored to your pet's needs.
+            From puppy kisses to senior cuddles, we offer a full range of medical services tailored to your pet&apos;s needs.
           </p>
         </div>
 

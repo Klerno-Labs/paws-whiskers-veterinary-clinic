@@ -50,7 +50,7 @@ const ContactForm: React.FC = () => {
       <button type="submit" disabled={isSubmitting} className="bg-green-600 text-white px-6 py-2.5 rounded-full text-lg font-semibold hover:bg-green-700">
         {isSubmitting ? 'Sending...' : 'Send Message'}
       </button>
-      {isSuccess && <p className="text-green-600">Thank you! We'll be in touch within 24 hours.</p>}
+      {isSuccess && <p className="text-green-600">Thank you! We&apos;ll be in touch within 24 hours.</p>}
       {error && <p className="text-red-600">{error}</p>}
     </form>
   );

@@ -10,7 +10,7 @@ export default function NotFound() {
       </div>
       <h1 className="font-heading font-bold text-6xl text-secondary mb-4">404</h1>
       <p className="text-xl text-muted-foreground mb-8 max-w-md">
-        Oops! We couldn't find the page you're looking for. Maybe it moved to a new territory?
+        Oops! We couldn&apos;t find the page you're looking for. Maybe it moved to a new territory?
       </p>
       <Button size="lg" asChild>
         <Link href="/">Go Back Home</Link>

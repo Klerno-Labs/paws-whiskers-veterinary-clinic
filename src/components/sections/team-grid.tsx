@@ -39,7 +39,7 @@ export function TeamGrid() {
             Meet Your Neighbors
           </h2>
           <p className="text-lg text-slate-600">
-            Our team isn't just staff—we're pet lovers, advocates, and members of the Denver community.
+            Our team isn&apos;t just staff—we're pet lovers, advocates, and members of the Denver community.
           </p>
         </div>
 
