@@ -1,3 +1,5 @@
+"use client";
+
 ```typescript
 import React, { useState } from 'react';
 

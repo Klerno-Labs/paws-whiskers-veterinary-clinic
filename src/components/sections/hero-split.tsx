@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button"
 import { images } from "@/config/images"
 import Image from "next/image"

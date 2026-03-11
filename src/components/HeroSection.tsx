@@ -1,3 +1,5 @@
+"use client";
+
 ```typescript
 import React from 'react';
 import { images } from '../config/images';
