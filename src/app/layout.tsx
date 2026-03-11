@@ -1,32 +1,31 @@
+"use client";
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
 import "@/styles/globals.css";
+import { siteConfig } from "@/config/site";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Paws & Whiskers Veterinary Clinic",
-  description: "Compassionate Care for Your Best Friends",
+  description: "Compassionate care for your best friends.",
+  metadataBase: new URL("https://example.com"),
   openGraph: {
     title: "Paws & Whiskers Veterinary Clinic",
-    description: "Compassionate Care for Your Best Friends",
+    description: "Compassionate care for your best friends.",
     url: "https://example.com",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
-        alt: "Modern office workspace with natural light",
-      },
-    ],
+    images: ["/images/hero.jpg"],
   },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-white text-slate-900">
-        <Navbar />
-        <main className="pt-20">{children}</main>
-        <Footer />
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+      </head>
+      <body className={cn("bg-background text-text")}>
+        {children}
       </body>
     </html>
   );

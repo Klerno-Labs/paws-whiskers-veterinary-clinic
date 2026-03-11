@@ -1,31 +1,29 @@
 "use client";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
-import { MobileMenu } from "@/components/layout/mobile-menu";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Phone } from "lucide-react";
 
-export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+    <nav className={cn("sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100")}>
       <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
-        <div className="text-2xl font-bold">{siteConfig.name}</div>
+        <Link href="/" className="text-2xl font-bold text-slate-900">
+          Paws & Whiskers
+        </Link>
         <div className="hidden md:flex space-x-8">
           {siteConfig.links.menu.map((link) => (
-            <a key={link.label} href={link.href} className="text-slate-900 hover:text-green-600">
+            <Link key={link.label} href={link.href} className="text-slate-600 hover:text-green-600">
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
-        <button
-          className="md:hidden"
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          ☰
-        </button>
-        <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+        <div className="flex items-center space-x-4">
+          <Link href={`tel:${siteConfig.phone}`} className="flex items-center text-slate-600 hover:text-green-600">
+            <Phone className="w-5 h-5" />
+            <span>{siteConfig.phone}</span>
+          </Link>
+        </div>
       </div>
     </nav>
   );
