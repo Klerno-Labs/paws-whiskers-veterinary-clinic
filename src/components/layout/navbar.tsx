@@ -1,37 +1,32 @@
 "use client";
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
+import { MobileMenu } from "@/components/layout/mobile-menu";
 
-export default function Navbar() {
+export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className={cn("sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100")}>
-      <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
-        <Link href="/" className="text-2xl font-bold">{siteConfig.name}</Link>
-        <div className="hidden md:flex space-x-4">
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200">
+      <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+        <div className="text-2xl font-bold">{siteConfig.name}</div>
+        <div className="hidden md:flex space-x-8">
           {siteConfig.links.menu.map((link) => (
-            <Link key={link.href} href={link.href} className="text-gray-700 hover:text-green-600">
+            <a key={link.label} href={link.href} className="text-slate-900 hover:text-green-600">
               {link.label}
-            </Link>
+            </a>
           ))}
         </div>
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
-          <Menu />
+        <button
+          className="md:hidden"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          ☰
         </button>
+        <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
-      {isOpen && (
-        <div className="md:hidden bg-white">
-          {siteConfig.links.menu.map((link) => (
-            <Link key={link.href} href={link.href} className="block p-4 text-gray-700 hover:bg-gray-100">
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      )}
     </nav>
   );
 }

@@ -1,24 +1,33 @@
-```typescript
-import './globals.css';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
-import { Metadata } from 'next';
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
+import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], display: 'swap' });
-
-export const metadata: Metadata = {
-  title: 'Paws & Whiskers Veterinary Clinic',
-  description: 'Compassionate care for your best friends at Paws & Whiskers Veterinary Clinic.',
-  metadataBase: new URL('https://example.com'),
+export const metadata = {
+  title: "Paws & Whiskers Veterinary Clinic",
+  description: "Compassionate Care for Your Best Friends",
+  openGraph: {
+    title: "Paws & Whiskers Veterinary Clinic",
+    description: "Compassionate Care for Your Best Friends",
+    url: "https://example.com",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop",
+        alt: "Modern office workspace with natural light",
+      },
+    ],
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${plusJakarta.className}`}>
-        {children}
+      <body className="bg-white text-slate-900">
+        <Navbar />
+        <main className="pt-20">{children}</main>
+        <Footer />
       </body>
     </html>
   );
 }
-```

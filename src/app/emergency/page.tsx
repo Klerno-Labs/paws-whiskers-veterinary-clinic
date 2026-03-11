@@ -1,21 +1,11 @@
-import { siteConfig } from "@/config/site";
-import Navbar from "@/components/layout/navbar";
-import Footer from "@/components/layout/footer";
-
 export default function Emergency() {
   return (
     <>
-      <Navbar />
-      <main className="pt-20">
-        <h1 className="text-4xl font-bold text-center mb-8">Emergency Care</h1>
-        <p className="text-lg text-center mb-12">
-          We are here for you and your pet in urgent situations.
-        </p>
-        <p className="text-lg text-center mb-12">
-          Call us immediately at {siteConfig.phone} for assistance.
-        </p>
-      </main>
-      <Footer />
+      <h1 className="text-4xl font-bold text-center py-16">Emergency Care</h1>
+      <div className="bg-red-600 text-white p-8 rounded-lg">
+        <p className="text-lg">We are here for you.</p>
+        <p className="text-xl">Call us immediately if your pet is in distress.</p>
+      </div>
     </>
   );
 }

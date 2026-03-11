@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function RegistrationWizard() {
+export function RegistrationWizard() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({ ownerName: "", petName: "", allergies: "" });
 
@@ -9,45 +9,43 @@ export default function RegistrationWizard() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleNext = () => {
-    setStep(step + 1);
+  const nextStep = () => {
+    setStep((prev) => prev + 1);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission logic here
+  const prevStep = () => {
+    setStep((prev) => prev - 1);
   };
 
   return (
     <div className="max-w-md mx-auto">
       {step === 1 && (
-        <form onSubmit={handleNext}>
+        <div>
           <h2 className="text-2xl font-bold mb-4">Step 1: Owner Information</h2>
-          <div className="mb-4">
-            <label htmlFor="ownerName" className="block text-sm font-medium">Owner Name</label>
-            <input type="text" name="ownerName" id="ownerName" value={formData.ownerName} onChange={handleChange} required className="border rounded-md w-full p-2" />
-          </div>
-          <button type="submit" className="bg-green-600 text-white px-6 py-2 rounded-lg">Next</button>
-        </form>
+          <label htmlFor="ownerName" className="block mb-1">Owner Name</label>
+          <input type="text" name="ownerName" id="ownerName" value={formData.ownerName} onChange={handleChange} required className="border rounded-lg w-full p-2" />
+          <button onClick={nextStep} className="bg-green-600 text-white px-4 py-2 rounded-lg mt-4">Next</button>
+        </div>
       )}
       {step === 2 && (
-        <form onSubmit={handleNext}>
+        <div>
           <h2 className="text-2xl font-bold mb-4">Step 2: Pet Information</h2>
-          <div className="mb-4">
-            <label htmlFor="petName" className="block text-sm font-medium">Pet Name</label>
-            <input type="text" name="petName" id="petName" value={formData.petName} onChange={handleChange} required className="border rounded-md w-full p-2" />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="allergies" className="block text-sm font-medium">Does your pet have allergies?</label>
-            <input type="text" name="allergies" id="allergies" value={formData.allergies} onChange={handleChange} className="border rounded-md w-full p-2" />
-          </div>
-          <button type="submit" className="bg-green-600 text-white px-6 py-2 rounded-lg">Next</button>
-        </form>
+          <label htmlFor="petName" className="block mb-1">Pet Name</label>
+          <input type="text" name="petName" id="petName" value={formData.petName} onChange={handleChange} required className="border rounded-lg w-full p-2" />
+          <label htmlFor="allergies" className="block mb-1">Allergies (if any)</label>
+          <input type="text" name="allergies" id="allergies" value={formData.allergies} onChange={handleChange} className="border rounded-lg w-full p-2" />
+          <button onClick={prevStep} className="bg-gray-300 text-black px-4 py-2 rounded-lg mt-4">Back</button>
+          <button onClick={nextStep} className="bg-green-600 text-white px-4 py-2 rounded-lg mt-4">Next</button>
+        </div>
       )}
       {step === 3 && (
         <div>
-          <h2 className="text-2xl font-bold mb-4">Thank you for registering!</h2>
-          <p>We will contact you soon to confirm your appointment.</p>
+          <h2 className="text-2xl font-bold mb-4">Step 3: Review</h2>
+          <p>Owner Name: {formData.ownerName}</p>
+          <p>Pet Name: {formData.petName}</p>
+          <p>Allergies: {formData.allergies}</p>
+          <button onClick={prevStep} className="bg-gray-300 text-black px-4 py-2 rounded-lg mt-4">Back</button>
+          <button onClick={() => alert("Registration Complete!")} className="bg-green-600 text-white px-4 py-2 rounded-lg mt-4">Submit</button>
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
-import { merge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: (string | undefined)[]) {
-  return merge(clsx(inputs));
+export function cn(...inputs: any[]) {
+  return twMerge(clsx(inputs));
 }
