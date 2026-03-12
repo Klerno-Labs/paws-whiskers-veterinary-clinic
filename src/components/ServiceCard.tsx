@@ -1,4 +1,4 @@
-```typescript
+
 import React from 'react';
 
 interface ServiceCardProps {
@@ -22,4 +22,3 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, cat
 };
 
 export default ServiceCard;
-```

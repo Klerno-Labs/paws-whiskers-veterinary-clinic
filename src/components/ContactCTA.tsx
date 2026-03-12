@@ -1,4 +1,4 @@
-```typescript
+
 const ContactCTA = () => {
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-primary text-white">
@@ -16,4 +16,3 @@ const ContactCTA = () => {
 };
 
 export default ContactCTA;
-```

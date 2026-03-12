@@ -1,6 +1,6 @@
 "use client";
 
-```typescript
+
 import React from 'react';
 import { images } from '../config/images';
 
@@ -39,4 +39,3 @@ const HeroSection: React.FC<HeroProps> = ({ badge, title, description, primaryCt
 };
 
 export default HeroSection;
-```

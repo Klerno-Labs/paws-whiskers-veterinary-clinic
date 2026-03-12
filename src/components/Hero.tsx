@@ -1,4 +1,4 @@
-```typescript
+
 import Image from "next/image";
 import { images } from "@/config/images";
 
@@ -37,4 +37,3 @@ const Hero = () => {
 };
 
 export default Hero;
-```

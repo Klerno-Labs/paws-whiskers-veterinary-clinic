@@ -1,4 +1,4 @@
-```typescript
+
 const Services = () => {
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-gray-50">
@@ -33,4 +33,3 @@ const Services = () => {
 };
 
 export default Services;
-```

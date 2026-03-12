@@ -1,6 +1,6 @@
 "use client";
 
-```typescript
+
 import React, { useState } from 'react';
 
 import { useState } from "react";
@@ -57,4 +57,3 @@ const ContactForm: React.FC = () => {
 };
 
 export default ContactForm;
-```
