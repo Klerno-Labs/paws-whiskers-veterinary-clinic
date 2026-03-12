@@ -17,7 +17,7 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener(&quot;scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -63,7 +63,7 @@ export function Navbar() {
                   pathname === href && "text-primary font-semibold"
                 )}
               >
-                {key.charAt(0).toUpperCase() + key.slice(1).replace("-", " ")}
+                {key.charAt(0).toUpperCase() + key.slice(1).replace(&quot;-", " ")}
                 {pathname === href && (
                   <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary rounded-full" />
                 )}
@@ -90,7 +90,7 @@ export function Navbar() {
             {/* Mobile Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-label={isOpen ? &quot;Close menu" : "Open menu"}
               className="md:hidden p-2 text-slate-600 hover:text-primary transition-colors"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -109,7 +109,7 @@ export function Navbar() {
               </span>
               <button
                 onClick={() => setIsOpen(false)}
-                aria-label="Close menu"
+                aria-label="Close menu&quot;
                 className="p-2 text-slate-600"
               >
                 <X className="h-6 w-6" />
@@ -125,7 +125,7 @@ export function Navbar() {
                     pathname === href && "text-primary font-bold"
                   )}
                 >
-                  {key.charAt(0).toUpperCase() + key.slice(1).replace("-", " ")}
+                  {key.charAt(0).toUpperCase() + key.slice(1).replace(&quot;-", " ")}
                 </Link>
               ))}
             </nav>

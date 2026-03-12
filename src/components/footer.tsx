@@ -10,7 +10,7 @@ export function Footer() {
 
   useEffect(() => {
     const checkScroll = () => setShowScroll(window.scrollY > 400);
-    window.addEventListener("scroll", checkScroll);
+    window.addEventListener(&quot;scroll", checkScroll);
     return () => window.removeEventListener("scroll", checkScroll);
   }, []);
 

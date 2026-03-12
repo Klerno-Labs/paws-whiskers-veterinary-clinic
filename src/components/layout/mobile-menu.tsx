@@ -22,7 +22,7 @@ export function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
       onClick={() => setIsOpen(false)}
     >
       <div className={`absolute right-0 bg-white w-64 h-full p-4 transition-transform ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
-        <button onClick={() => setIsOpen(false)} aria-label="Close menu">✖</button>
+        <button onClick={() => setIsOpen(false)} aria-label="Close menu&quot;>✖</button>
         <ul className="flex flex-col space-y-4 mt-4">
           {siteConfig.links.menu.map((link) => (
             <li key={link.label}>

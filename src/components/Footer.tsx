@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 export function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: &quot;smooth" });
   };
 
   const currentYear = new Date().getFullYear();

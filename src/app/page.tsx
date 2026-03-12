@@ -17,14 +17,14 @@ export default function Home() {
   }
 
   const services = [
-    { title: "Wellness Exams", desc: "Comprehensive nose-to-tail checkups to keep your pet healthy.", price: "$65", icon: Shield, image: images["service-1"] },
+    { title: &quot;Wellness Exams", desc: "Comprehensive nose-to-tail checkups to keep your pet healthy.", price: "$65", icon: Shield, image: images["service-1"] },
     { title: "Dental Cleaning", desc: "Professional cleaning to prevent disease and freshen breath.", price: "$280", icon: Heart, image: images["service-2"] },
     { title: "Surgery", desc: "Safe, advanced surgical procedures with compassionate aftercare.", price: "From $250", icon: Star, image: images["service-3"] },
     { title: "Vaccinations", desc: "Core and lifestyle vaccines tailored to your pet&apos;s needs.", price: "From $25", icon: Shield, image: images["service-1"] },
   ]
 
   const testimonials = [
-    { name: "The Garcias", text: "Dr. Sato saved our dog&apos;s life when he ate something he shouldn't have. We trust them completely." },
+    { name: "The Garcias", text: "Dr. Sato saved our dog&apos;s life when he ate something he shouldn&apos;t have. We trust them completely." },
     { name: "Nina P.", text: "Most gentle vet we've ever been to. Our anxious cat was actually calm here." },
     { name: "Chris & Amanda B.", text: "They take the time to explain everything. You can tell they genuinely love animals." }
   ]
@@ -187,17 +187,17 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[images["team-1"], images["team-2"], images["team-3"]].map((img, idx) => (
+            {[images[&quot;team-1"], images["team-2"], images["team-3"]].map((img, idx) => (
               <div key={idx} className="group relative rounded-3xl overflow-hidden cursor-pointer">
                 <div className="aspect-[3/4] w-full">
                   <Image src={img.src} alt={img.alt} width={img.width} height={img.height} className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
                   <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 className="text-white font-heading font-bold text-xl">Dr. {idx === 0 ? "Emily Sato" : idx === 1 ? "James Okafor" : "Sarah Liu"}</h3>
-                    <p className="text-accent text-sm mb-2">{idx === 2 ? "Veterinary Technician" : "Lead Veterinarian"}</p>
+                    <h3 className="text-white font-heading font-bold text-xl">Dr. {idx === 0 ? &quot;Emily Sato" : idx === 1 ? "James Okafor" : "Sarah Liu"}</h3>
+                    <p className="text-accent text-sm mb-2">{idx === 2 ? &quot;Veterinary Technician" : "Lead Veterinarian"}</p>
                     <p className="text-slate-300 text-sm line-clamp-2">
-                      {idx === 0 ? "Fear Free Certified with 11 years of experience." : idx === 1 ? "Exotic animal specialist." : "Cat behavior specialist."}
+                      {idx === 0 ? &quot;Fear Free Certified with 11 years of experience." : idx === 1 ? "Exotic animal specialist." : "Cat behavior specialist."}
                     </p>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ export default function Home() {
                 <div className="flex text-yellow-400 gap-0.5 mb-4">
                   {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                 </div>
-                <p className="text-slate-200 mb-6 leading-relaxed">"{t.text}"</p>
+                <p className="text-slate-200 mb-6 leading-relaxed">"{t.text}&quot;</p>
                 <div className="font-bold text-white">— {t.name}</div>
               </motion.div>
             ))}
