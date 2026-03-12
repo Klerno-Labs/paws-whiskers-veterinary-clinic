@@ -17,7 +17,7 @@ export function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
-    window.addEventListener(&quot;scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -99,7 +99,7 @@ export function Navbar() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                aria-label={isOpen ? &quot;Close menu" : "Open menu"}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
                 className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors"
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -136,7 +136,7 @@ export function Navbar() {
               <span className="font-heading font-bold text-lg text-slate-900">Menu</span>
               <button
                 onClick={() => setIsOpen(false)}
-                aria-label="Close menu&quot;
+                aria-label="Close menu"
                 className="p-2 text-slate-500 hover:text-slate-800"
               >
                 <X className="w-6 h-6" />
@@ -150,7 +150,7 @@ export function Navbar() {
                     href={link.href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      &quot;text-lg font-medium transition-colors",
+                      "text-lg font-medium transition-colors",
                       pathname === link.href ? "text-green-700" : "text-slate-600"
                     )}
                   >
@@ -161,7 +161,7 @@ export function Navbar() {
                 <Link
                   href="/emergency"
                   onClick={() => setIsOpen(false)}
-                  className="text-lg font-medium text-red-600 flex items-center gap-2&quot;
+                  className="text-lg font-medium text-red-600 flex items-center gap-2"
                 >
                   Emergency?
                 </Link>

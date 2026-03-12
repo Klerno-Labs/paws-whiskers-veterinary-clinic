@@ -81,7 +81,7 @@ export default function NewPatients() {
           <h2 className="font-heading font-bold text-4xl text-secondary mb-12 text-center">What to Bring</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              &quot;Previous vaccination records",
+              "Previous vaccination records",
               "Any medications your pet is currently taking",
               "A list of foods/treats your pet eats",
               "Your pet in a secure carrier or on a leash"

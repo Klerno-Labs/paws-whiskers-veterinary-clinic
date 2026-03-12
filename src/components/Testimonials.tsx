@@ -11,19 +11,19 @@ const Testimonials = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         <div className="p-6 md:p-8 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-shadow">
           <p className="text-base leading-relaxed text-gray-600">
-            &quot;The consulting services provided were exceptional and helped us streamline our operations." 
+            "The consulting services provided were exceptional and helped us streamline our operations." 
           </p>
           <p className="mt-4 font-semibold">Maria L.</p>
         </div>
         <div className="p-6 md:p-8 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-shadow">
           <p className="text-base leading-relaxed text-gray-600">
-            &quot;Their marketing strategies significantly increased our visibility and customer engagement."
+            "Their marketing strategies significantly increased our visibility and customer engagement."
           </p>
           <p className="mt-4 font-semibold">James T.</p>
         </div>
         <div className="p-6 md:p-8 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-shadow">
           <p className="text-base leading-relaxed text-gray-600">
-            &quot;The support team was always available and provided us with the assistance we needed."
+            "The support team was always available and provided us with the assistance we needed."
           </p>
           <p className="mt-4 font-semibold">Emily R.</p>
         </div>

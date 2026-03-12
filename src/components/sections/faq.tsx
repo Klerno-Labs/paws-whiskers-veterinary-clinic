@@ -39,7 +39,7 @@ export default function FAQ() {
             <div key={idx} className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none&quot;
+                className="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none"
               >
                 <span className="font-semibold text-slate-900">{faq.question}</span>
                 <ChevronDown 

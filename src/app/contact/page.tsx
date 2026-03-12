@@ -54,7 +54,7 @@ export default function Contact() {
                 <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-4" />
                 <h3 className="font-heading font-bold text-xl text-green-900 mb-2">Message Sent!</h3>
                 <p className="text-green-700">We&apos;ll be in touch within 24 hours.</p>
-                <button onClick={() => setStatus('idle')} className="mt-4 text-sm text-green-800 underline&quot;>Send another</button>
+                <button onClick={() => setStatus('idle')} className="mt-4 text-sm text-green-800 underline">Send another</button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -134,7 +134,7 @@ export default function Contact() {
                   name="_gotcha" 
                   value={honeypot}
                   onChange={(e) => setHoneypot(e.target.value)}
-                  className="hidden&quot; 
+                  className="hidden" 
                   tabIndex={-1} 
                   autoComplete="off" 
                 />

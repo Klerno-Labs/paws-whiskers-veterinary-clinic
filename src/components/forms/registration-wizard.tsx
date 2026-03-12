@@ -32,7 +32,7 @@ export default function RegistrationWizard() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(&quot;In a real app, this would submit the registration data!");
+    alert("In a real app, this would submit the registration data!");
     setStep(4); // Success state
   };
 
@@ -58,7 +58,7 @@ export default function RegistrationWizard() {
             <div 
               key={s} 
               className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold transition-colors ${
-                step >= s ? &quot;bg-primary-600 text-white" : "bg-slate-100 text-slate-400"
+                step >= s ? "bg-primary-600 text-white" : "bg-slate-100 text-slate-400"
               }`}
             >
               {step > s ? <CheckCircle size={16} /> : s}
@@ -146,7 +146,7 @@ export default function RegistrationWizard() {
             <ArrowLeft className="mr-2 h-4 w-4" /> Back
           </Button>
           <Button type="submit" className="min-w-[120px]">
-            {step === 3 ? &quot;Submit" : "Next"} <ArrowRight className="ml-2 h-4 w-4" />
+            {step === 3 ? "Submit" : "Next"} <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
       </form>

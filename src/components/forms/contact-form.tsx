@@ -14,7 +14,7 @@ export function ContactForm() {
     message: "",
     _gotcha: "" // Honeypot
   })
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(&quot;idle")
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -24,7 +24,7 @@ export function ContactForm() {
     e.preventDefault()
     if (formData._gotcha) return // Bot detected
 
-    setStatus(&quot;loading")
+    setStatus("loading")
     
     try {
       const res = await fetch("/api/contact", {
@@ -53,7 +53,7 @@ export function ContactForm() {
           </div>
           <h3 className="text-2xl font-heading font-bold text-slate-900 mb-2">Message Sent!</h3>
           <p className="text-slate-600">We&apos;ll be in touch within 24 hours.</p>
-          <Button onClick={() => setStatus(&quot;idle")} variant="outline" className="mt-6">Send another</Button>
+          <Button onClick={() => setStatus("idle")} variant="outline" className="mt-6">Send another</Button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -143,7 +143,7 @@ export function ContactForm() {
                 Sending...
               </>
             ) : (
-              &quot;Send Message"
+              "Send Message"
             )}
           </Button>
         </form>

@@ -90,7 +90,7 @@ export function Navbar() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? &quot;Close menu" : "Open menu"}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
             className="md:hidden p-2 text-secondary relative z-50"
           >
             {isOpen ? <X /> : <Menu />}
@@ -115,7 +115,7 @@ export function Navbar() {
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    &quot;text-2xl font-heading font-medium text-secondary",
+                    "text-2xl font-heading font-medium text-secondary",
                     pathname === link.href && "text-primary"
                   )}
                 >
@@ -123,7 +123,7 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="h-px bg-slate-100 my-4"></div>
-              <Link href="/emergency" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-red-600 font-semibold text-lg&quot;>
+              <Link href="/emergency" onClick={() => setIsOpen(false)} className="flex items-center gap-3 text-red-600 font-semibold text-lg">
                 <Phone className="w-5 h-5" />
                 Emergency: (555) 987-6543
               </Link>

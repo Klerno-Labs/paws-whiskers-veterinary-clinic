@@ -10,7 +10,7 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, id, ...props }, ref) => {
-    const inputId = id || label.toLowerCase().replace(/\s+/g, &quot;-");
+    const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
     const isValid = !error && props.value && props.value.toString().length > 0;
 
     return (

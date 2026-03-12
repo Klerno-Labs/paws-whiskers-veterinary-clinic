@@ -55,7 +55,7 @@ export function Testimonials() {
                       <Star key={i} className="w-4 h-4 fill-current" />
                     ))}
                   </div>
-                  <p className="text-slate-600 mb-6 flex-grow italic">"{testimonial.text}&quot;</p>
+                  <p className="text-slate-600 mb-6 flex-grow italic">"{testimonial.text}"</p>
                   <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
                     <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-700 font-bold">
                       {testimonial.name.charAt(0)}
