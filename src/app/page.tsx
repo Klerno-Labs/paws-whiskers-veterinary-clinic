@@ -24,7 +24,7 @@ export default function Home() {
   ]
 
   const testimonials = [
-    { name: "The Garcias", text: "Dr. Sato saved our dog's life when he ate something he shouldn't have. We trust them completely." },
+    { name: "The Garcias", text: "Dr. Sato saved our dog&apos;s life when he ate something he shouldn't have. We trust them completely." },
     { name: "Nina P.", text: "Most gentle vet we've ever been to. Our anxious cat was actually calm here." },
     { name: "Chris & Amanda B.", text: "They take the time to explain everything. You can tell they genuinely love animals." }
   ]
